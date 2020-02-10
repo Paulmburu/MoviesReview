@@ -8,4 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+    <style name="movieTxts">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/roboto_slab_bold</item>
+        <item name="android:textAlignment">center</item>
+    </style>
 </resources>
