@@ -1,43 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:clickable="true"
-    android:focusable="true"
-    android:foreground="?android:attr/selectableItemBackground"
-    app:cardElevation="3dp"
-    card_view:cardBackgroundColor="@color/white"
-    app:cardUseCompatPadding="true"
-    card_view:cardCornerRadius="@dimen/card_corner_radius">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <data>
+
+        <variable
+            name="viewModel"
+            type="tk.paulmburu.moviesreview.overview.OverviewViewModel" />
+
+    </data>
+
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="vertical"
-        tools:ignore="UseCompoundDrawables">
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardElevation="3dp"
+        app:cardUseCompatPadding="true"
+        card_view:cardBackgroundColor="@color/white"
+        card_view:cardCornerRadius="@dimen/card_corner_radius">
 
-        <ImageView
-            android:id="@+id/imageViewCharacterImage"
-            android:layout_width="match_parent"
-            android:layout_height="154dp"
-            android:layout_gravity="center"
-            android:contentDescription="@string/app_name"
-            android:scaleType="centerCrop"
-            tools:src="@drawable/joker_movie" />
-
-        <TextView
-            android:id="@+id/textViewCharacterName"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_small"
-            android:fontFamily="@font/roboto_slab_bold"
-            style="@style/movieTxts"
-            tools:text="Joker" />
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            tools:ignore="UseCompoundDrawables">
 
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/imageViewCharacterImage"
+                android:layout_width="match_parent"
+                android:layout_height="154dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/app_name"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/joker_movie" />
 
-</androidx.cardview.widget.CardView>
+            <TextView
+                android:id="@+id/textViewCharacterName"
+                style="@style/movieTxts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_small"
+                android:fontFamily="@font/roboto_slab_bold"
+                tools:text="Joker" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

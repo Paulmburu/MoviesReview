@@ -41,10 +41,6 @@ class OverviewFragment : Fragment() {
         // Giving the binding access to the OverviewViewModel
         binding.viewModel = viewModel
 
-        viewModel.response.observe(this, Observer {
-            it -> Log.d("$this","$it")
-        })
-
 
         return binding.root
     }
