@@ -7,8 +7,8 @@
     <data>
 
         <variable
-            name="viewModel"
-            type="tk.paulmburu.moviesreview.overview.OverviewViewModel" />
+            name="movieResult"
+            type="tk.paulmburu.moviesreview.network.MovieResult" />
 
     </data>
 
@@ -32,6 +32,7 @@
             tools:ignore="UseCompoundDrawables">
 
             <ImageView
+                app:imageUrl="@{movieResult.posterPath}"
                 android:id="@+id/imageViewCharacterImage"
                 android:layout_width="match_parent"
                 android:layout_height="154dp"

@@ -66,6 +66,9 @@ dependencies {
 //    Glide library dependency
     implementation "com.github.bumptech.glide:glide:$version_glide"
 
+//    Gradle dependency for the RecyclerView
+    implementation "androidx.recyclerview:recyclerview:$version_recyclerview"
+
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'

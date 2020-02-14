@@ -12,6 +12,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import tk.paulmburu.moviesreview.R
 import tk.paulmburu.moviesreview.databinding.FragmentOverviewBinding
+//import tk.paulmburu.moviesreview.databinding.FragmentOverviewBinding
+import tk.paulmburu.moviesreview.databinding.MovieItemBinding
 
 /**
  * A simple [Fragment] subclass.
@@ -40,6 +42,9 @@ class OverviewFragment : Fragment() {
 
         // Giving the binding access to the OverviewViewModel
         binding.viewModel = viewModel
+
+//        Set binding.photosGrid.adapter to a new PhotoGridAdapter()
+        binding.recyclerViewMovies.adapter = PhotoGridAdapter()
 
 
         return binding.root
