@@ -9,7 +9,14 @@
         android:id="@+id/detailFragment"
         android:name="tk.paulmburu.moviesreview.details.DetailFragment"
         android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail" />
+        tools:layout="@layout/fragment_detail">
+
+        <argument
+            android:name="selectedMovie"
+            app:argType="tk.paulmburu.moviesreview.network.MovieResult" />
+
+    </fragment>
+
     <fragment
         android:id="@+id/overviewFragment"
         android:name="tk.paulmburu.moviesreview.overview.OverviewFragment"

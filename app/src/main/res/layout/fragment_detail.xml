@@ -1,166 +1,177 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#eeeeee">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <data>
+        <variable
+            name="viewModel"
+            type="tk.paulmburu.moviesreview.details.DetailViewModel" />
+    </data>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:background="#eeeeee">
 
-        <androidx.cardview.widget.CardView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="6dp"
-            app:cardCornerRadius="10dp"
-            app:elevation="5dp">
+            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/bannerImgView"
-                android:layout_width="match_parent"
-                android:layout_height="220dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/joker_movie" />
-
-        </androidx.cardview.widget.CardView>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:text="Movie Details"
-            android:textAllCaps="true"
-            android:textColor="@color/black"
-            android:textSize="14sp" />
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="6dp"
-            android:background="@color/white"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="5dp">
-
-            <LinearLayout
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                app:cardCornerRadius="10dp"
+                app:elevation="5dp">
+
+                <ImageView
+                    app:imageUrl="@{viewModel.selectedMovie.posterPath}"
+                    android:id="@+id/bannerImgView"
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/joker_movie" />
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:orientation="vertical">
+                android:text="Movie Details"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Name"
-                    android:textSize="14sp" />
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:background="@color/white"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="5dp">
 
-                <TextView
-                    android:id="@+id/nameTxtView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:text="joker"
-                    tools:text="joker" />
-
-                <View
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="16dp"
-                    android:background="#eeeeee" />
-
-                <TextView
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="Release Date"
-                    android:textSize="14sp" />
+                    android:layout_margin="16dp"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/genderTxtView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:text="2019-10-02"
-                    tools:text="2019-10-02" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Name"
+                        android:textSize="14sp" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="16dp"
-                    android:background="#eeeeee" />
+                    <TextView
+                        app:movieTitle="@{viewModel.selectedMovie.title}"
+                        android:id="@+id/nameTxtView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        tools:text="joker" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="Vote Average"
-                    android:textSize="14sp" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="16dp"
+                        android:background="#eeeeee" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="Release Date"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        app:movieTitle="@{viewModel.selectedMovie.release_date}"
+                        android:id="@+id/genderTxtView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        tools:text="2019-10-02" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="16dp"
+                        android:background="#eeeeee" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="Vote Average"
+                        android:textSize="14sp" />
 
 
-                <TextView
-                    android:id="@+id/typeTxtView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:text="8.3"
-                    tools:text="8.3" />
+                    <TextView
+                        app:movieTitle="@{viewModel.selectedMovie.vote_average}"
+                        android:id="@+id/typeTxtView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        tools:text="8.3" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="16dp"
-                    android:background="#eeeeee" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="16dp"
+                        android:background="#eeeeee" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="Original Language"
-                    android:textSize="14sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="Original Language"
+                        android:textSize="14sp" />
 
-                <TextView
-                    android:id="@+id/statusTxtView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:text="English"
-                    tools:text="English" />
+                    <TextView
+                        app:movieTitle="@{viewModel.selectedMovie.originalLanguage}"
+                        android:id="@+id/statusTxtView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        tools:text="English" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="16dp"
-                    android:background="#eeeeee" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="16dp"
+                        android:background="#eeeeee" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="Overview"
-                    android:textSize="14sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="Overview"
+                        android:textSize="14sp" />
 
-                <TextView
-                    android:id="@+id/overviewTxtView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:text="@string/joker_overview"
-                    tools:text="@string/joker_overview" />
+                    <TextView
+                        app:movieTitle="@{viewModel.selectedMovie.overview}"
+                        android:id="@+id/overviewTxtView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        tools:text="@string/joker_overview" />
 
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
-    </LinearLayout>
-</ScrollView>
+        </LinearLayout>
+    </ScrollView>
+</layout>

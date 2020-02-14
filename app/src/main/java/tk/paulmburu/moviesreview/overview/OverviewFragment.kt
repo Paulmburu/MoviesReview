@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import tk.paulmburu.moviesreview.R
 import tk.paulmburu.moviesreview.databinding.FragmentOverviewBinding
 //import tk.paulmburu.moviesreview.databinding.FragmentOverviewBinding
@@ -43,8 +44,19 @@ class OverviewFragment : Fragment() {
         // Giving the binding access to the OverviewViewModel
         binding.viewModel = viewModel
 
+//        Initialize PhotoGridAdapter with an OnClickListener that calls viewModel.displayMovieDetails
 //        Set binding.photosGrid.adapter to a new PhotoGridAdapter()
-        binding.recyclerViewMovies.adapter = PhotoGridAdapter()
+        binding.recyclerViewMovies.adapter = PhotoGridAdapter(PhotoGridAdapter.OnClickListener {
+            viewModel.displayMovieDetails(it)
+        })
+
+//        Observe navigateToSelectedMovie, Navigate when MovieResult !null, then call displayMovieDetailsComplete()
+        viewModel.navigateToSelectedMovie.observe(this, Observer {
+            if ( null != it ) {
+                this.findNavController().navigate(OverviewFragmentDirections.actionOverviewFragmentToDetailFragment(it))
+                viewModel.displayMovieDetailsComplete()
+            }
+        })
 
 
         return binding.root
