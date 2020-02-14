@@ -48,6 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_small"
                 android:fontFamily="@font/roboto_slab_bold"
+                app:movieTitle="@{movieResult.title}"
                 tools:text="Joker" />
 
         </LinearLayout>
