@@ -8,7 +8,7 @@
 
         <variable
             name="movieResult"
-            type="tk.paulmburu.moviesreview.network.MovieResult" />
+            type="tk.paulmburu.moviesreview.models.MovieResult" />
 
     </data>
 
