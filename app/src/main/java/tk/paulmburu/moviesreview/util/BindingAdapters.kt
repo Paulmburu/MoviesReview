@@ -1,4 +1,4 @@
-package tk.paulmburu.moviesreview.util
+package tk.paulmburu.moviesreview
 
 import android.view.View
 import android.widget.ImageView
@@ -7,7 +7,6 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import tk.paulmburu.moviesreview.R
 import tk.paulmburu.moviesreview.models.MovieResult
 import tk.paulmburu.moviesreview.overview.MarsApiStatus
 import tk.paulmburu.moviesreview.overview.PhotoGridAdapter
