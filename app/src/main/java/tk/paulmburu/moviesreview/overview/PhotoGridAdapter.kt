@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import tk.paulmburu.moviesreview.databinding.MovieItemBinding
-import tk.paulmburu.moviesreview.models.MovieResult
+import tk.paulmburu.moviesreview.network.MovieResult
 
 /**
  * This class implements a [RecyclerView] [ListAdapter] which uses Data Binding to present [List]

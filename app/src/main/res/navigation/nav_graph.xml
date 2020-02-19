@@ -13,7 +13,7 @@
 
         <argument
             android:name="selectedMovie"
-            app:argType="tk.paulmburu.moviesreview.network.MovieResult" />
+            app:argType="tk.paulmburu.moviesreview.domain.Movie" />
 
     </fragment>
 

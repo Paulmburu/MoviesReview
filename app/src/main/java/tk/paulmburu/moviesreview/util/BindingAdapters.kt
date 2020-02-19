@@ -1,4 +1,4 @@
-package tk.paulmburu.moviesreview
+package tk.paulmburu.moviesreview.util
 
 import android.view.View
 import android.widget.ImageView
@@ -7,8 +7,9 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import tk.paulmburu.moviesreview.models.MovieResult
-import tk.paulmburu.moviesreview.overview.MarsApiStatus
+import tk.paulmburu.moviesreview.R
+import tk.paulmburu.moviesreview.network.MovieResult
+import tk.paulmburu.moviesreview.overview.MoviesApiStatus
 import tk.paulmburu.moviesreview.overview.PhotoGridAdapter
 
 
@@ -39,17 +40,17 @@ fun bindTextView(textView: TextView, title: String?){
 }
 
 @BindingAdapter("marsApiStatus")
-fun bindStatus(statusImageView: ImageView, status: MarsApiStatus?) {
+fun bindStatus(statusImageView: ImageView, status: MoviesApiStatus?) {
     when (status) {
-        MarsApiStatus.LOADING -> {
+        MoviesApiStatus.LOADING -> {
             statusImageView.visibility = View.VISIBLE
             statusImageView.setImageResource(R.drawable.loading_animation)
         }
-        MarsApiStatus.ERROR -> {
+        MoviesApiStatus.ERROR -> {
             statusImageView.visibility = View.VISIBLE
             statusImageView.setImageResource(R.drawable.ic_connection_error)
         }
-        MarsApiStatus.DONE -> {
+        MoviesApiStatus.DONE -> {
             statusImageView.visibility = View.GONE
         }
     }

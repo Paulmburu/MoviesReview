@@ -8,7 +8,15 @@
 
         <variable
             name="movieResult"
-            type="tk.paulmburu.moviesreview.models.MovieResult" />
+            type="tk.paulmburu.moviesreview.network.MovieResult" />
+
+        <variable
+            name="movie"
+            type="tk.paulmburu.moviesreview.domain.Movie" />
+
+        <variable
+            name="clicklistener"
+            type="tk.paulmburu.moviesreview.overview.OnClickListener" />
 
     </data>
 
@@ -25,6 +33,7 @@
         card_view:cardCornerRadius="@dimen/card_corner_radius">
 
         <LinearLayout
+            android:onClick="@{() -> clicklistener.onClick(movie)}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -32,7 +41,7 @@
             tools:ignore="UseCompoundDrawables">
 
             <ImageView
-                app:imageUrl="@{movieResult.posterPath}"
+                app:imageUrl="@{movie.poster_path}"
                 android:id="@+id/imageViewCharacterImage"
                 android:layout_width="match_parent"
                 android:layout_height="154dp"
@@ -48,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_small"
                 android:fontFamily="@font/roboto_slab_bold"
-                app:movieTitle="@{movieResult.title}"
+                app:movieTitle="@{movie.title}"
                 tools:text="Joker" />
 
         </LinearLayout>
