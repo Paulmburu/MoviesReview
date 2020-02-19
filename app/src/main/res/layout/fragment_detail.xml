@@ -28,7 +28,7 @@
                 app:elevation="5dp">
 
                 <ImageView
-                    app:imageUrl="@{viewModel.selectedMovie.posterPath}"
+                    app:imageUrl="@{viewModel.selectedMovie.poster_path}"
                     android:id="@+id/bannerImgView"
                     android:layout_width="match_parent"
                     android:layout_height="220dp"
@@ -137,7 +137,7 @@
                         android:textSize="14sp" />
 
                     <TextView
-                        app:movieTitle="@{viewModel.selectedMovie.originalLanguage}"
+                        app:movieTitle="@{viewModel.selectedMovie.original_language}"
                         android:id="@+id/statusTxtView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

@@ -69,6 +69,16 @@ dependencies {
 //    Gradle dependency for the RecyclerView
     implementation "androidx.recyclerview:recyclerview:$version_recyclerview"
 
+    // Room database
+    implementation "androidx.room:room-runtime:$version_room"
+    kapt "androidx.room:room-compiler:$version_room"
+
+    // WorkManager
+    implementation "android.arch.work:work-runtime-ktx:$version_work"
+
+    // Logging
+    implementation "com.jakewharton.timber:timber:$version_timber"
+
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'

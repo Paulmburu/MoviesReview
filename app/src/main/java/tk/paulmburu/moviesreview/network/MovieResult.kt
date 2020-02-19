@@ -1,4 +1,4 @@
-package tk.paulmburu.moviesreview.models
+package tk.paulmburu.moviesreview.network
 
 import android.os.Parcelable
 import com.squareup.moshi.Json

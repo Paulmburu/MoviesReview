@@ -6,15 +6,21 @@ import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.Toast
+import androidx.annotation.LayoutRes
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import tk.paulmburu.moviesreview.R
 import tk.paulmburu.moviesreview.databinding.FragmentOverviewBinding
-//import tk.paulmburu.moviesreview.databinding.FragmentOverviewBinding
-import tk.paulmburu.moviesreview.databinding.MovieItemBinding
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import kotlinx.android.synthetic.main.fragment_overview.*
+import tk.paulmburu.moviesreview.databinding.MovieItemBinding
+import tk.paulmburu.moviesreview.domain.Movie
+import tk.paulmburu.moviesreview.network.MovieResult
 
 
 /**
@@ -27,10 +33,38 @@ class OverviewFragment : Fragment(),SwipeRefreshLayout.OnRefreshListener {
      * Lazily initialize our [OverviewViewModel].
      */
     private val viewModel: OverviewViewModel by lazy {
-        ViewModelProviders.of(this).get(OverviewViewModel::class.java)
+        val activity = requireNotNull(this.activity) {
+            "You can only access the viewModel after onActivityCreated()"
+        }
+
+
+        ViewModelProviders.of(this, OverviewViewModel.Factory(activity.application))
+            .get(OverviewViewModel::class.java)
     }
 
     private var mSwipeRefreshLayout: SwipeRefreshLayout? = null
+
+    /**
+     * RecyclerView Adapter for converting a list of Video to cards.
+     */
+    private var viewModelAdapter: OverviewAdapter? = null
+
+    /**
+     * Called when the fragment's activity has been created and this
+     * fragment's view hierarchy instantiated.  It can be used to do final
+     * initialization once these pieces are in place, such as retrieving
+     * views or restoring state.
+     */
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewModel.playlist.observe(viewLifecycleOwner, Observer<List<Movie>> { movies ->
+            movies?.apply {
+                viewModelAdapter?.movies = movies
+            }
+        })
+    }
+
+
     /**
      * Inflates the layout with Data Binding, sets its lifecycle owner to the OverviewFragment
      * to enable Data Binding to observe LiveData, and sets up the RecyclerView with an adapter.
@@ -52,9 +86,14 @@ class OverviewFragment : Fragment(),SwipeRefreshLayout.OnRefreshListener {
 
 //        Initialize PhotoGridAdapter with an OnClickListener that calls viewModel.displayMovieDetails
 //        Set binding.photosGrid.adapter to a new PhotoGridAdapter()
-        binding.recyclerViewMovies.adapter = PhotoGridAdapter(PhotoGridAdapter.OnClickListener {
+        viewModelAdapter = OverviewAdapter(OnClickListener {
             viewModel.displayMovieDetails(it)
+            Log.d("OVERVIEW--FRAG", "${it.title} clicked")
         })
+
+        binding.root.findViewById<RecyclerView>(R.id.recyclerViewMovies).apply {
+            adapter = viewModelAdapter
+        }
 
 //        Observe navigateToSelectedMovie, Navigate when MovieResult !null, then call displayMovieDetailsComplete()
         viewModel.navigateToSelectedMovie.observe(this, Observer {
@@ -70,20 +109,69 @@ class OverviewFragment : Fragment(),SwipeRefreshLayout.OnRefreshListener {
     }
 
     override fun onRefresh() {
-        viewModel.onSwipe()
+//        viewModel.onSwipe()
         mSwipeRefreshLayout!!.isRefreshing = false
     }
 
+}
+
+
+/**
+ * RecyclerView Adapter for setting up data binding on the items in the list.
+ */
+class OverviewAdapter(val onClickListener: OnClickListener) :  RecyclerView.Adapter<OverviewViewHolder>() {
+
     /**
-     * Inflates the overflow menu that contains filtering options.
+     * The Movies that our Adapter will show
      */
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.overflow_menu, menu)
+    var movies: List<Movie> = emptyList()
+        set(value) {
+            field = value
+            // For an extra challenge, update this to use the paging library.
+
+            // Notify any registered observers that the data set has changed. This will cause every
+            // element in our RecyclerView to be invalidated.
+            notifyDataSetChanged()
+        }
+
+    /**
+     * Called when RecyclerView needs a new {@link ViewHolder} of the given type to represent
+     * an item.
+     */
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OverviewViewHolder {
+        val withDataBinding: MovieItemBinding = DataBindingUtil.inflate(
+            LayoutInflater.from(parent.context),
+            OverviewViewHolder.LAYOUT,
+            parent,
+            false)
+        return OverviewViewHolder(withDataBinding)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-            when (item.itemId) {
-            }
-        return true
+    override fun getItemCount() = movies.size
+
+    /**
+     * Called by RecyclerView to display the data at the specified position. This method should
+     * update the contents of the {@link ViewHolder#itemView} to reflect the item at the given
+     * position.
+     */
+    override fun onBindViewHolder(holder: OverviewViewHolder, position: Int) {
+
+        holder.viewDataBinding.also {
+            it.movie = movies.get(position)
+            it.clicklistener = onClickListener
+        }
     }
+
+}
+
+class OverviewViewHolder(val viewDataBinding: MovieItemBinding): RecyclerView.ViewHolder(viewDataBinding.root) {
+    companion object {
+        @LayoutRes
+        val LAYOUT = R.layout.movie_item
+    }
+}
+
+//    Create an OnClickListener class with a lambda in its constructor that initializes a matching onClick function
+class OnClickListener(val clickListener: (movie: Movie) -> Unit) {
+    fun onClick(movie: Movie) = clickListener(movie)
 }

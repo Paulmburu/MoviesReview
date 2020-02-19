@@ -1,8 +1,8 @@
-package tk.paulmburu.moviesreview.models
+package tk.paulmburu.moviesreview.network
 
 import com.squareup.moshi.Json
-import tk.paulmburu.moviesreview.models.MovieResult
+import tk.paulmburu.moviesreview.network.MovieResult
 
 data class MoviesProperties(
-    @Json(name = "results")val results: List<MovieResult> = ArrayList<MovieResult>()
+    @Json(name = "results")val results: List<NetworkMovieContainer>
 )

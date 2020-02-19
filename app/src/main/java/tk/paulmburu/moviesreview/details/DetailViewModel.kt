@@ -4,18 +4,19 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import tk.paulmburu.moviesreview.models.MovieResult
+import tk.paulmburu.moviesreview.domain.Movie
+import tk.paulmburu.moviesreview.network.MovieResult
 
-class DetailViewModel(movieResult: MovieResult, app : Application) : ViewModel(){
+class DetailViewModel(movie: Movie, app : Application) : ViewModel(){
 //    Add selected MovieLiveData, and initialize during init
 
-    private val _selectedMovie = MutableLiveData<MovieResult>()
+    private val _selectedMovie = MutableLiveData<Movie>()
 
-    val selectedMovie: LiveData<MovieResult>
+    val selectedMovie: LiveData<Movie>
         get() = _selectedMovie
 
     init {
-        _selectedMovie.value = movieResult
+        _selectedMovie.value = movie
     }
 
 

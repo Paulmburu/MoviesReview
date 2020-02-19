@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
-import tk.paulmburu.moviesreview.R
 import tk.paulmburu.moviesreview.databinding.FragmentDetailBinding
 
 /**
@@ -25,10 +24,10 @@ class DetailFragment : Fragment() {
         val binding = FragmentDetailBinding.inflate(inflater)
         binding.setLifecycleOwner(this)
         // Get the selectedProperty from the fragment arguments with DetailFragmentArgs
-        val movieResult = DetailFragmentArgs.fromBundle(arguments!!).selectedMovie
+        val movie = DetailFragmentArgs.fromBundle(arguments!!).selectedMovie
 
         // Create the DetailViewModelFactory using the movieResult and application
-        val viewModelFactory = DetailViewModelFactory(movieResult, application)
+        val viewModelFactory = DetailViewModelFactory(movie, application)
 
         // Get the DetailViewModel from the DetailViewModelFactory and set it in the binding
         binding.viewModel = ViewModelProviders.of(

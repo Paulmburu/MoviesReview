@@ -7,7 +7,6 @@ import kotlinx.coroutines.Deferred
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
-import tk.paulmburu.moviesreview.models.MoviesProperties
 
 private const val BASE_URL = "https://api.themoviedb.org/3/"
 
@@ -27,7 +26,7 @@ private val retrofit = Retrofit.Builder()
 interface MoviesApiService {
     @GET("movie/popular?api_key=3356954909fe5fc6ea425bc2f969dfd8")
     fun getProperties():
-            Deferred<MoviesProperties>
+            Deferred<NetworkMovieContainer>
 }
 
 //Create the MoviesApi object using Retrofit to implement the MoviesApiService
