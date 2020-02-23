@@ -25,6 +25,7 @@ Libraries Used
   * [Moshi][10] - A modern JSON library for Android and Java. It makes it easy to parse JSON into Java objects
   * [Glide][11] for image loading
   * [Kotlin Coroutines][12] for managing background threads with simplified code and reducing needs for callbacks
+  *[Timber][13] logging Library
 
 [1]: https://developer.android.com/jetpack/arch/
 [2]: https://developer.android.com/topic/libraries/data-binding/
@@ -38,3 +39,4 @@ Libraries Used
 [10]: https://github.com/square/moshi
 [11]: https://bumptech.github.io/glide/
 [12]: https://kotlinlang.org/docs/reference/coroutines-overview.html
+[13]: https://github.com/JakeWharton/timber
