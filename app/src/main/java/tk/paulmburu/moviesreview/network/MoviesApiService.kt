@@ -25,8 +25,13 @@ private val retrofit = Retrofit.Builder()
 //Implement the MoviesApiService interface with @GET getProperties returning a String
 interface MoviesApiService {
     @GET("movie/popular?api_key=3356954909fe5fc6ea425bc2f969dfd8")
-    fun getProperties():
+    fun getPopularMovies():
             Deferred<NetworkMovieContainer>
+    @GET("movie/upcoming?api_key=3356954909fe5fc6ea425bc2f969dfd8")
+    fun getUpcomingMovies():
+            Deferred<NetworkMovieContainer>
+
+
 }
 
 //Create the MoviesApi object using Retrofit to implement the MoviesApiService
