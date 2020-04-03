@@ -89,6 +89,12 @@ class OverviewViewModel(application: Application) : ViewModel(){
         _navigateToSelectedMovie.value = null
     }
 
+    fun onSwipe() {
+        coroutineScope.launch {
+            moviesRepository.refreshMovies()
+        }
+    }
+
 //    fun onSwipe(){
 //        getPopularMoviesProperties()
 //    }
@@ -105,4 +111,6 @@ class OverviewViewModel(application: Application) : ViewModel(){
             throw IllegalArgumentException("Unable to construct viewmodel")
         }
     }
+
+
 }
