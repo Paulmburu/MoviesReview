@@ -21,8 +21,11 @@
     <item
         android:id="@+id/id_popular_movies_menu"
         android:title="@string/popular_movies" />
+
     <item
-        android:id="@+id/is_latest_movies_menu"
-        android:title="@string/latest_movies" />
+        android:id="@+id/id_upcoming_movies_menu"
+        android:title="@string/upcoming_movies" />
+
+
 
 </menu>
