@@ -32,9 +32,20 @@ class MoviesRepository (private val database: MoviesDatabase){
      */
     suspend fun refreshMovies(){
         withContext(Dispatchers.IO){
-            val result = MoviesApi.retrofitService.getProperties().await()
+            val result = MoviesApi.retrofitService.getPopularMovies().await()
+            database.movieDao.deleteAllMovies()
             database.movieDao.insertAll(*result.asDatabaseModel())
         }
 
     }
+
+    suspend fun getUpcomingMovies(){
+        withContext(Dispatchers.IO){
+            val result = MoviesApi.retrofitService.getUpcomingMovies().await()
+            database.movieDao.deleteAllMovies()
+            database.movieDao.insertAll(*result.asDatabaseModel())
+        }
+    }
+
+
 }
