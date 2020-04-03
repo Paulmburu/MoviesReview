@@ -5,22 +5,17 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
-import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import tk.paulmburu.moviesreview.R
 import tk.paulmburu.moviesreview.databinding.FragmentOverviewBinding
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import tk.paulmburu.moviesreview.databinding.MovieItemBinding
 import tk.paulmburu.moviesreview.domain.Movie
-import tk.paulmburu.moviesreview.network.MovieResult
 
 
 /**
@@ -81,6 +76,15 @@ class OverviewFragment : Fragment(),SwipeRefreshLayout.OnRefreshListener {
 
         mSwipeRefreshLayout = binding.swipeContainer
 
+        mSwipeRefreshLayout!!.setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener {
+            onRefresh()
+        })
+
+        mSwipeRefreshLayout!!.setColorSchemeResources(android.R.color.holo_blue_bright,
+            android.R.color.holo_green_light,
+            android.R.color.holo_orange_light,
+            android.R.color.holo_red_light);
+
         // Giving the binding access to the OverviewViewModel
         binding.viewModel = viewModel
 
@@ -108,15 +112,26 @@ class OverviewFragment : Fragment(),SwipeRefreshLayout.OnRefreshListener {
         return binding.root
     }
 
+
+
     override fun onRefresh() {
-//        viewModel.onSwipe()
+        viewModel.onSwipe()
         mSwipeRefreshLayout!!.isRefreshing = false
     }
 
+//    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+//        inflater?.inflate(R.menu.overflow_menu, menu)
+//        super.onCreateOptionsMenu(menu, inflater)
+//    }
+//
+//    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+//        return super.onOptionsItemSelected(item)
+//    }
 }
 
 
 /**
+import android.widget.Toast
  * RecyclerView Adapter for setting up data binding on the items in the list.
  */
 class OverviewAdapter(val onClickListener: OnClickListener) :  RecyclerView.Adapter<OverviewViewHolder>() {
@@ -162,6 +177,8 @@ class OverviewAdapter(val onClickListener: OnClickListener) :  RecyclerView.Adap
         }
     }
 
+
+
 }
 
 class OverviewViewHolder(val viewDataBinding: MovieItemBinding): RecyclerView.ViewHolder(viewDataBinding.root) {
@@ -175,3 +192,4 @@ class OverviewViewHolder(val viewDataBinding: MovieItemBinding): RecyclerView.Vi
 class OnClickListener(val clickListener: (movie: Movie) -> Unit) {
     fun onClick(movie: Movie) = clickListener(movie)
 }
+
