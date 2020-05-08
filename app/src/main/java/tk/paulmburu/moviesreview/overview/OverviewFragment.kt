@@ -43,7 +43,6 @@ class OverviewFragment : Fragment(),SwipeRefreshLayout.OnRefreshListener {
      * RecyclerView Adapter for converting a list of Video to cards.
      */
     private var viewModelAdapter: OverviewAdapter? = null
-
     /**
      * Called when the fragment's activity has been created and this
      * fragment's view hierarchy instantiated.  It can be used to do final
