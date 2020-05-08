@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
 
         return when (item?.itemId) {
             R.id.id_popular_movies_menu -> {
-                Toast.makeText(this,"popular_movies_menu", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,"Popular Movies", Toast.LENGTH_SHORT).show()
                 coroutineScope.launch {
                     moviesRepository.refreshMovies()
                 }
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             R.id.id_upcoming_movies_menu-> {
-                Toast.makeText(this,"upcoming_movies_menu", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,"Upcoming Movies", Toast.LENGTH_SHORT).show()
 //                moviesRepository.getUpcomingMovies()
                 coroutineScope.launch {
                     moviesRepository.getUpcomingMovies()
