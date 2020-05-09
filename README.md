@@ -2,14 +2,15 @@
 Get a review of latest popular movies.
 MoviesReview app development in progress, consumes https://www.themoviedb.org/ REST APIs to fetch popular movies and their info, built on [Android Architecture Components](https://developer.android.com/topic/libraries/architecture) and [MVVM Architecture](https://developer.android.com/jetpack/docs/guide).
 
-# APK
+## APK
 [MoviesReview app APK](app/debug/app-debug.apk)
 
-# Screenshots
-<image src="screenshots/1.png" width="200"><image src="screenshots/2.png" width="200"><image src="screenshots/3.png" width="200"><image src="screenshots/4.png" width="200"><image src="screenshots/5.png" width="200"><image src="screenshots/6.png" width="200"><image src="screenshots/7.png" width="200"><image src="screenshots/8.png" width="200">
-
-Libraries Used
+## Screenshots
+<image src="screenshots/3.png" width="200"><image src="screenshots/2.png" width="200"><image src="screenshots/4.png" width="200"><image src="screenshots/5.png" width="200">
 --------------
+  
+  ## Tech stack
+  
 * [Architecture][1] - A collection of libraries that help you design robust, testable, and
   maintainable apps. Start with classes for managing your UI component lifecycle and handling data
   persistence.
@@ -40,3 +41,20 @@ Libraries Used
 [11]: https://bumptech.github.io/glide/
 [12]: https://kotlinlang.org/docs/reference/coroutines-overview.html
 [13]: https://github.com/JakeWharton/timber
+
+## License
+```
+   Copyright 2020 Paul Mburu
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+   ```
