@@ -2,12 +2,15 @@
 Get a review of latest popular movies.
 MoviesReview app development in progress, consumes https://www.themoviedb.org/ REST APIs to fetch popular movies and their info, built on [Android Architecture Components](https://developer.android.com/topic/libraries/architecture) and [MVVM Architecture](https://developer.android.com/jetpack/docs/guide).
 
-# APK
+## APK
 [MoviesReview app APK](app/debug/app-debug.apk)
 
-# Screenshots
+## Screenshots
 <image src="screenshots/3.png" width="200"><image src="screenshots/2.png" width="200"><image src="screenshots/4.png" width="200"><image src="screenshots/5.png" width="200">
 --------------
+  
+  ## Tech stack
+  
 * [Architecture][1] - A collection of libraries that help you design robust, testable, and
   maintainable apps. Start with classes for managing your UI component lifecycle and handling data
   persistence.
@@ -39,7 +42,7 @@ MoviesReview app development in progress, consumes https://www.themoviedb.org/ R
 [12]: https://kotlinlang.org/docs/reference/coroutines-overview.html
 [13]: https://github.com/JakeWharton/timber
 
-# License
+## License
 ```
    Copyright 2020 Paul Mburu
 
