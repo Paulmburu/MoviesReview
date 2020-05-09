@@ -40,7 +40,7 @@ MoviesReview app development in progress, consumes https://www.themoviedb.org/ R
 [13]: https://github.com/JakeWharton/timber
 
 # License
-
+```
    Copyright 2020 Paul Mburu
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -54,3 +54,4 @@ MoviesReview app development in progress, consumes https://www.themoviedb.org/ R
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
+   ```
