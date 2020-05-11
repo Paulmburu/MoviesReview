@@ -2,8 +2,7 @@
 Get a review of latest popular movies.
 MoviesReview app development in progress, consumes https://www.themoviedb.org/ REST APIs to fetch popular movies and their info, built on [Android Architecture Components](https://developer.android.com/topic/libraries/architecture) and [MVVM Architecture](https://developer.android.com/jetpack/docs/guide).
 
-## APK
-[MoviesReview app APK](app/debug/app-debug.apk)
+<a href="https://play.google.com/store/apps/details?id=tk.paulmburu.moviesreview"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" height=60px /></a>
 
 ## Screenshots
 <image src="screenshots/3.png" width="200"><image src="screenshots/2.png" width="200"><image src="screenshots/4.png" width="200"><image src="screenshots/5.png" width="200">
