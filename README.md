@@ -42,7 +42,7 @@ MoviesReview app development in progress, consumes https://www.themoviedb.org/ R
 [12]: https://kotlinlang.org/docs/reference/coroutines-overview.html
 [13]: https://github.com/JakeWharton/timber
 
-## License
+## [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 ```
    Copyright 2020 Paul Mburu
 
