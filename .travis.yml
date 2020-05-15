@@ -1,103 +1,19 @@
 language: android
-# you MUST mention trusty https://docs.travis-ci.com/user/languages/android/
-dist: trusty
-env:
- global:
-# These parameters should match the parameters for build tools and sdk versions in the gradle file
- - ANDROID_BUILD_TOOLS=29.0.3 # should match gradle
- - ADB_INSTALL_TIMEOUT=5 # minutes
- - ANDROID_API=29 # api is same as gradle file
- matrix:
- - EMULATOR_API=21
- - EMULATOR_API=22
 android:
   components:
     - tools
-    - platform-tools-$ANDROID_BUILD_TOOLS
-    - build-tools-$ANDROID_BUILD_TOOLS
-    - android-$ANDROID_API
-    - android-$EMULATOR_API
+    - platform-tools
+    - build-tools-29.0.3
+    - android-29
+    - addon-google_apis-google-29
     - extra-google-m2repository
-    - extra-android-m2repository # for design library
-    - addon-google_apis-google-19 # google play services
-    - sys-img-armeabi-v7a-addon-google_apis-google-$ANDROID_API
-    - sys-img-armeabi-v7a-addon-google_apis-google-$EMULATOR_API
-    - sys-img-armeabi-v7a-android-$EMULATOR_API
-  licenses:
-    - android-sdk-preview-license-.+
-    - android-sdk-license-.+
-    - google-gdk-license-.+
-jdk:
-  - oraclejdk8
+    - extra-android-m2repository
+script:
+  - ./gradlew test
 before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 cache:
   directories:
+    - $HOME/.m2
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
-before_install:
-    #- yes | sdkmanager "platforms;android-$ANDROID_API"
-before_script:
-  - echo $TRAVIS_BRANCH
-  - echo $TRAVIS_TAG
-  - echo no | android create avd --force -n test -t android-$EMULATOR_API --abi armeabi-v7a
-  - emulator -avd test -no-audio -no-window &
-  - scripts/android-wait-for-emulator.sh
-  - adb shell input keyevent 82 &
-script:
-  - ./gradlew cleanAllModules
-  - ./gradlew testAllModulesTravis
-  - if [[ -n $TRAVIS_TAG ]]; then ./gradlew ship; fi
-
-# Integration tests need to run first to reset the PR build status to pending
-stages:
-  - 'Lint markdown files'
-  - 'Integration tests'
-  - 'Benchmarking tests'
-  - 'Test'
-
-jobs:
-  include:
-    - stage: 'Lint markdown files'
-      os: linux
-      language: generic
-      install: gem install awesome_bot
-      before_script: skip
-      script:
-        - find . -type f -name '*.md' -exec awesome_bot {} \;
-      notifications:
-        email: false
-
-    - stage: 'Lint markdown files'
-      os: linux
-      language: generic
-      before_install: skip
-      install:
-        - npm i -g markdown-spellcheck
-      before_script:
-        - wget --quiet https://raw.githubusercontent.com/optimizely/mdspell-config/master/.spelling
-      # script:
-      #   - mdspell -a -n -r --en-us '**/*.md'
-      # after_success: skip
-
-    - &integrationtest
-      stage: 'Integration tests'
-      addons:
-        srcclr: true
-      env:
-        - SDK=android
-        - BUILD_NUMBER=${TRAVIS_JOB_NUMBER/.}
-        - SDK_BRANCH=$TRAVIS_PULL_REQUEST_BRANCH
-        - TESTAPP_BRANCH=master
-      cache: false
-      language: minimal
-      before_install: skip
-      install: skip
-      before_script:
-        - mkdir $HOME/travisci-tools && pushd $HOME/travisci-tools && git init && git pull https://$CI_USER_TOKEN@github.com/optimizely/travisci-tools.git && popd
-      script:
-        - $HOME/travisci-tools/trigger-script-with-status-update.sh
-      after_success: travis_terminate 0
-    - <<: *integrationtest
-      stage: 'Benchmarking tests'
-      env: SDK=android FULLSTACK_TEST_REPO=Benchmarking BUILD_NUMBER=${TRAVIS_JOB_NUMBER/.} SDK_BRANCH=$TRAVIS_PULL_REQUEST_BRANCH
