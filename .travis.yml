@@ -8,6 +8,9 @@ android:
     - addon-google_apis-google-29
     - extra-google-m2repository
     - extra-android-m2repository
+- run:
+      name: chmod permissions
+      command: chmod +x ./gradlew
 script:
   - ./gradlew test
 before_cache:
