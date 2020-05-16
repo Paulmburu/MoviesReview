@@ -10,29 +10,32 @@ import tk.paulmburu.moviesreview.domain.Movie
 import tk.paulmburu.moviesreview.network.MoviesApi
 import tk.paulmburu.moviesreview.network.NetworkMovie
 import tk.paulmburu.moviesreview.network.asDatabaseModel
+import tk.paulmburu.moviesreview.utils.ResultState
+import tk.paulmburu.moviesreview.utils.Success
+import tk.paulmburu.moviesreview.utils.executeNonBlocking
 
 class MoviesRepository (private val database: MoviesDatabase){
 
-    /**
-     * A list of movies that can be shown on the screen.
-     */
-    val movies: LiveData<List<Movie>> =
-        Transformations.map(database.movieDao.getMovies()) {
-            it.asDomainModel()
-        }
 
-    /**
-     * Refresh the videos stored in the offline cache.
-     *
-     * This function uses the IO dispatcher to ensure the database insert database operation
-     * happens on the IO dispatcher. By switching to the IO dispatcher using `withContext` this
-     * function is now safe to call from any thread including the Main thread.
-     *
-     * To actually load the videos for use, observe [videos]
-     */
+    suspend fun getAvailableMovies(): ResultState<List<Movie>>{
+        return executeNonBlocking {
+            if(database.movieDao.getMovies().isNullOrEmpty()){
+                val response = MoviesApi.retrofitService.getPopularMovies()
+                if(response.results.size == 0 )
+                    Success(emptyList<Movie>())
+                else{
+                    val result = MoviesApi.retrofitService.getPopularMovies()
+                    database.movieDao.deleteAllMovies()
+                    database.movieDao.insertAll(*result.asDatabaseModel())
+                    Success(database.movieDao.getMovies().asDomainModel())
+                }
+            } else Success(database.movieDao.getMovies().asDomainModel())
+        }
+    }
+
     suspend fun refreshMovies(){
         withContext(Dispatchers.IO){
-            val result = MoviesApi.retrofitService.getPopularMovies().await()
+            val result = MoviesApi.retrofitService.getPopularMovies()
             database.movieDao.deleteAllMovies()
             database.movieDao.insertAll(*result.asDatabaseModel())
         }
@@ -41,11 +44,12 @@ class MoviesRepository (private val database: MoviesDatabase){
 
     suspend fun getUpcomingMovies(){
         withContext(Dispatchers.IO){
-            val result = MoviesApi.retrofitService.getUpcomingMovies().await()
+            val result = MoviesApi.retrofitService.getUpcomingMovies()
             database.movieDao.deleteAllMovies()
             database.movieDao.insertAll(*result.asDatabaseModel())
         }
     }
 
-
 }
+
+
