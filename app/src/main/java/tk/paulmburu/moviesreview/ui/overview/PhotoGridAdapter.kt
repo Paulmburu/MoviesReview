@@ -1,4 +1,4 @@
-package tk.paulmburu.moviesreview.overview
+package tk.paulmburu.moviesreview.ui.overview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

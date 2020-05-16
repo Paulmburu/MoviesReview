@@ -1,4 +1,4 @@
-package tk.paulmburu.moviesreview.details
+package tk.paulmburu.moviesreview.ui.details
 
 
 import android.os.Bundle
