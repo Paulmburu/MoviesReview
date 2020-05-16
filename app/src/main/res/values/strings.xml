@@ -10,4 +10,5 @@
     <string name="popular_tv_shows">Popular TV Shows</string>
     <string name="latest_tv_shows">latest TV Shows</string>
     <string name="upcoming_tv_shows">Upcoming TV Shows</string>
+    <string name="no_internet_connection">No Internet Connection</string>
 </resources>
