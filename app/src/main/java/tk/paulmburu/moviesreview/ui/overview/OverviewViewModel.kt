@@ -1,19 +1,18 @@
-package tk.paulmburu.moviesreview.overview
+package tk.paulmburu.moviesreview.ui.overview
 
 import android.app.Application
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import tk.paulmburu.moviesreview.database.getDatabase
 import tk.paulmburu.moviesreview.domain.Movie
+import tk.paulmburu.moviesreview.interactors.GetAvailableMoviesUseCase
 import tk.paulmburu.moviesreview.network.MovieResult
-import tk.paulmburu.moviesreview.network.MoviesApi
 import tk.paulmburu.moviesreview.repository.MoviesRepository
+import tk.paulmburu.moviesreview.utils.Loading
+import tk.paulmburu.moviesreview.utils.ResultState
 
 //MoviesApiStatus enum with the LOADING, ERROR, and DONE states
 enum class MoviesApiStatus { LOADING, ERROR, DONE }
@@ -48,37 +47,22 @@ class OverviewViewModel(application: Application) : ViewModel(){
     private val database = getDatabase(application)
     private val moviesRepository = MoviesRepository(database)
 
-    /**
-     * Call getPopularMoviesProperties() on init so we can display status immediately.
-     */
     init {
-        coroutineScope.launch {
-            moviesRepository.refreshMovies()
+        getAvailableMovies()
+    }
+
+    private val _movies = MutableLiveData<ResultState<List<Movie>>>()
+
+    val movies: LiveData<ResultState<List<Movie>>>
+        get() = _movies
+
+    fun getAvailableMovies(){
+//        _movies.value = Loading<List<Movie>>()
+        coroutineScope.launch(Dispatchers.IO) {
+            _movies.postValue(GetAvailableMoviesUseCase(moviesRepository).invoke())
         }
     }
 
-    val playlist = moviesRepository.movies
-
-    /**
-     * Sets the value of the status LiveData to the Popular Movies API status.
-     */
-//    private fun getPopularMoviesProperties(){
-//
-//        coroutineScope.launch {
-//            var getPropertiesDeferred = MoviesApi.retrofitService.getProperties()
-//
-//            try {
-//                _status.value = MoviesApiStatus.LOADING
-//                var result = getPropertiesDeferred.await()
-//                _status.value = MoviesApiStatus.DONE
-//                _movieResults.value = result.results
-//            } catch (e: Exception) {
-//                _status.value = MoviesApiStatus.ERROR
-//                _movieResults.value = arrayListOf()
-//            }
-//        }
-//
-//    }
 
     // Add displayMovieDetails and displayMovieDetailsComplete methods
     fun displayMovieDetails(movie: Movie) {
@@ -94,10 +78,6 @@ class OverviewViewModel(application: Application) : ViewModel(){
             moviesRepository.refreshMovies()
         }
     }
-
-//    fun onSwipe(){
-//        getPopularMoviesProperties()
-//    }
 
     /**
      * Factory for constructing OverviewViewModel with parameter
