@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="tk.paulmburu.moviesreview.overview.OverviewViewModel" />
+            type="tk.paulmburu.moviesreview.ui.overview.OverviewViewModel" />
 
     </data>
 
@@ -20,6 +20,10 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            <include layout="@layout/errorview" />
+
+            <include layout="@layout/movies_loading_animation" />
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewMovies"

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/detailFragment"
-        android:name="tk.paulmburu.moviesreview.details.DetailFragment"
+        android:name="tk.paulmburu.moviesreview.ui.details.DetailFragment"
         android:label="fragment_detail"
         tools:layout="@layout/fragment_detail">
 
@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/overviewFragment"
-        android:name="tk.paulmburu.moviesreview.overview.OverviewFragment"
+        android:name="tk.paulmburu.moviesreview.ui.overview.OverviewFragment"
         android:label="fragment_overview"
         tools:layout="@layout/fragment_overview">
         <action

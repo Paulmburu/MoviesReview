@@ -7,7 +7,7 @@
     <data>
         <variable
             name="viewModel"
-            type="tk.paulmburu.moviesreview.details.DetailViewModel" />
+            type="tk.paulmburu.moviesreview.ui.details.DetailViewModel" />
     </data>
 
     <ScrollView

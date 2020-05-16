@@ -1,4 +1,4 @@
-package tk.paulmburu.moviesreview.util
+package tk.paulmburu.moviesreview.utils
 
 import android.view.View
 import android.widget.ImageView
@@ -9,8 +9,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import tk.paulmburu.moviesreview.R
 import tk.paulmburu.moviesreview.network.MovieResult
-import tk.paulmburu.moviesreview.overview.MoviesApiStatus
-import tk.paulmburu.moviesreview.overview.PhotoGridAdapter
+import tk.paulmburu.moviesreview.ui.overview.MoviesApiStatus
+import tk.paulmburu.moviesreview.ui.overview.PhotoGridAdapter
 
 
 //binding adapter for the listData attribute that calls submitList on the RV adapter

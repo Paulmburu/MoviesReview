@@ -16,7 +16,7 @@
 
         <variable
             name="clicklistener"
-            type="tk.paulmburu.moviesreview.overview.OnClickListener" />
+            type="tk.paulmburu.moviesreview.ui.overview.OnClickListener" />
 
     </data>
 
