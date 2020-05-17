@@ -17,38 +17,52 @@ import tk.paulmburu.moviesreview.utils.executeNonBlocking
 class MoviesRepository (private val database: MoviesDatabase){
 
 
-    suspend fun getAvailableMovies(): ResultState<List<Movie>>{
+    suspend fun getAvailablePopularMovies(): ResultState<List<Movie>>{
         return executeNonBlocking {
-            if(database.movieDao.getMovies().isNullOrEmpty()){
+            if(database.movieDao.getPopularMovies().isNullOrEmpty()){
                 val response = MoviesApi.retrofitService.getPopularMovies()
                 if(response.results.size == 0 )
                     Success(emptyList<Movie>())
                 else{
                     val result = MoviesApi.retrofitService.getPopularMovies()
-                    database.movieDao.deleteAllMovies()
-                    database.movieDao.insertAll(*result.asDatabaseModel())
-                    Success(database.movieDao.getMovies().asDomainModel())
+                    database.movieDao.insertAllPopularMovies(*result.asDatabaseModel())
+                    Success(database.movieDao.getPopularMovies().asDomainModel())
                 }
-            } else Success(database.movieDao.getMovies().asDomainModel())
+            } else Success(database.movieDao.getPopularMovies().asDomainModel())
         }
     }
 
-    suspend fun refreshMovies(){
-        withContext(Dispatchers.IO){
-            val result = MoviesApi.retrofitService.getPopularMovies()
-            database.movieDao.deleteAllMovies()
-            database.movieDao.insertAll(*result.asDatabaseModel())
-        }
+//    suspend fun getAvailableUpcomingMovies(): ResultState<List<Movie>>{
+//        return executeNonBlocking {
+//            if(database.movieDao.getUpcomingMovies().isNullOrEmpty()){
+//                val response = MoviesApi.retrofitService.getUpcomingMovies()
+//                if(response.results.size == 0 )
+//                    Success(emptyList<Movie>())
+//                else{
+//                    val result = MoviesApi.retrofitService.getUpcomingMovies()
+//                    database.movieDao.insertAllUpcomingMovies(*result.asDatabaseModel())
+//                    Success(database.movieDao.getUpcomingMovies().asDomainModel())
+//                }
+//            } else Success(database.movieDao.getUpcomingMovies().asDomainModel())
+//        }
+//    }
 
-    }
-
-    suspend fun getUpcomingMovies(){
-        withContext(Dispatchers.IO){
-            val result = MoviesApi.retrofitService.getUpcomingMovies()
-            database.movieDao.deleteAllMovies()
-            database.movieDao.insertAll(*result.asDatabaseModel())
-        }
-    }
+//    suspend fun refreshMovies(){
+//        withContext(Dispatchers.IO){
+//            val result = MoviesApi.retrofitService.getPopularMovies()
+//            database.movieDao.deleteAllMovies()
+//            database.movieDao.insertAll(*result.asDatabaseModel())
+//        }
+//
+//    }
+//
+//    suspend fun getUpcomingMovies(){
+//        withContext(Dispatchers.IO){
+//            val result = MoviesApi.retrofitService.getUpcomingMovies()
+//            database.movieDao.deleteAllMovies()
+//            database.movieDao.insertAll(*result.asDatabaseModel())
+//        }
+//    }
 
 }
 
