@@ -5,7 +5,18 @@ import androidx.room.PrimaryKey
 import tk.paulmburu.moviesreview.domain.Movie
 
 @Entity
-data class DatabaseMovie constructor(
+data class PopularMovies constructor(
+    @PrimaryKey
+    open val title: String,
+    open val overview: String,
+    open val release_date: String,
+    open val vote_average: String,
+    open val poster_path: String,
+    open val original_language: String
+)
+
+@Entity
+data class UpcomingMovies constructor(
     @PrimaryKey
     val title: String,
     val overview: String,
@@ -15,7 +26,8 @@ data class DatabaseMovie constructor(
     val original_language: String
 )
 
-fun List<DatabaseMovie>.asDomainModel(): List<Movie> {
+
+fun List<PopularMovies>.asDomainModel(): List<Movie> {
     return map {
         Movie(
             title = it.title,
