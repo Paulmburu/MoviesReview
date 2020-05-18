@@ -8,25 +8,30 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import tk.paulmburu.moviesreview.database.getDatabase
 import tk.paulmburu.moviesreview.domain.Movie
-import tk.paulmburu.moviesreview.interactors.GetAvailableMoviesUseCase
+import tk.paulmburu.moviesreview.interactors.GetAvailablePopularMoviesUseCase
+import tk.paulmburu.moviesreview.interactors.GetAvailableUpcomingMoviesUseCase
 import tk.paulmburu.moviesreview.network.MovieResult
 import tk.paulmburu.moviesreview.repository.MoviesRepository
-import tk.paulmburu.moviesreview.utils.Loading
+import tk.paulmburu.moviesreview.ui.*
 import tk.paulmburu.moviesreview.utils.ResultState
 
 //MoviesApiStatus enum with the LOADING, ERROR, and DONE states
 enum class MoviesApiStatus { LOADING, ERROR, DONE }
-/**
- * The [ViewModel] that is attached to the [OverviewFragment].
- */
 class OverviewViewModel(application: Application) : ViewModel(){
-
     // The internal MutableLiveData String that stores the status of the most recent request
     private val _status = MutableLiveData<MoviesApiStatus>()
 
     // The external immutable LiveData for the request status String
     val status: LiveData<MoviesApiStatus>
             get() = _status
+
+    private val _overFlowMenuState = MutableLiveData<OverflowMenuState>()
+    val overFlowMenuState: LiveData<OverflowMenuState>
+        get() = _overFlowMenuState
+
+    fun setOverflowMenuState(state: OverflowMenuState){
+        _overFlowMenuState.postValue(state)
+    }
 
 //    LiveData MoviesProperty property with an internal Mutable and an external LiveData
     private val _movieResults = MutableLiveData<List<MovieResult>>()
@@ -48,7 +53,7 @@ class OverviewViewModel(application: Application) : ViewModel(){
     private val moviesRepository = MoviesRepository(database)
 
     init {
-        getAvailableMovies()
+        getAvailablePopularMovies()
     }
 
     private val _movies = MutableLiveData<ResultState<List<Movie>>>()
@@ -56,13 +61,21 @@ class OverviewViewModel(application: Application) : ViewModel(){
     val movies: LiveData<ResultState<List<Movie>>>
         get() = _movies
 
-    fun getAvailableMovies(){
+    fun getAvailablePopularMovies(){
 //        _movies.value = Loading<List<Movie>>()
         coroutineScope.launch(Dispatchers.IO) {
-            _movies.postValue(GetAvailableMoviesUseCase(moviesRepository).invoke())
+            _movies.postValue(GetAvailablePopularMoviesUseCase(moviesRepository).invoke())
+            _overFlowMenuState.postValue(PopularMoviesState())
         }
     }
 
+    fun getAvailableUpcomingMovies(){
+//        _movies.value = Loading<List<Movie>>()
+        coroutineScope.launch(Dispatchers.IO) {
+            _movies.postValue(GetAvailableUpcomingMoviesUseCase(moviesRepository).invoke())
+            _overFlowMenuState.postValue(UpcomingMoviesState())
+        }
+    }
 
     // Add displayMovieDetails and displayMovieDetailsComplete methods
     fun displayMovieDetails(movie: Movie) {
@@ -74,10 +87,22 @@ class OverviewViewModel(application: Application) : ViewModel(){
     }
 
     fun onSwipe() {
-        coroutineScope.launch {
-            moviesRepository.refreshMovies()
+
+        when(overFlowMenuState.value){
+            is PopularMoviesState ->{
+                coroutineScope.launch(Dispatchers.IO) {
+                    _movies.postValue(GetAvailablePopularMoviesUseCase(moviesRepository).invoke())
+                }
+            }
+            is UpcomingMoviesState -> {
+                coroutineScope.launch(Dispatchers.IO) {
+                    _movies.postValue(GetAvailableUpcomingMoviesUseCase(moviesRepository).invoke())
+                }
+            }
         }
+
     }
+
 
     /**
      * Factory for constructing OverviewViewModel with parameter
@@ -91,6 +116,9 @@ class OverviewViewModel(application: Application) : ViewModel(){
             throw IllegalArgumentException("Unable to construct viewmodel")
         }
     }
-
-
 }
+
+sealed class OverflowMenuState
+data class PopularMoviesState(val title: String = "Popular Movies") : OverflowMenuState()
+data class UpcomingMoviesState(val title: String = "Upcoming Movies") : OverflowMenuState()
+
