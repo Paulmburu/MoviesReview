@@ -11,7 +11,7 @@ class RefreshDataWorker(appContext: Context, params: WorkerParameters):
     CoroutineWorker(appContext, params) {
 
     companion object {
-        const val WORK_NAME = "RefresahDataWorker"
+        const val WORK_NAME = "RefreshDataWorker"
     }
 
     /**
@@ -22,7 +22,8 @@ class RefreshDataWorker(appContext: Context, params: WorkerParameters):
         val repository = MoviesRepository(database)
 
         return try {
-            repository.refreshMovies()
+            repository.getAvailablePopularMovies()
+            repository.getAvailableUpcomingMovies()
             Payload(Result.SUCCESS)
         } catch (e: HttpException) {
             Payload(Result.RETRY)
