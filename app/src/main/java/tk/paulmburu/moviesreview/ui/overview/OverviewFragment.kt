@@ -5,9 +5,9 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import androidx.fragment.app.Fragment
 import androidx.annotation.LayoutRes
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -39,20 +39,42 @@ class OverviewFragment : BaseFragment<List<Movie>>(),SwipeRefreshLayout.OnRefres
 
     private var viewModelAdapter: OverviewAdapter? = null
 
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        observeNetworkChanges()
+    }
+
+    fun subscribeOverflowMenuObserver(){
+        viewModel.overFlowMenuState.observe(viewLifecycleOwner, Observer<OverflowMenuState> {
+            when(it){
+                is PopularMoviesState -> {
+                    (activity as AppCompatActivity).supportActionBar!!.setTitle(PopularMoviesState().title)
+
+                }
+                is UpcomingMoviesState -> {
+                    (activity as AppCompatActivity).supportActionBar!!.setTitle(UpcomingMoviesState().title)
+                }
+            }
+        })
+    }
+
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun observeNetworkChanges() {
         onNetworkChange { isConnected ->
             if (isConnected && viewModel.movies.value is Error)
-                viewModel.getAvailableMovies()
+                viewModel.getAvailablePopularMovies()
         }
     }
 
     override fun onResume() {
         super.onResume()
-        observeLeagues()
+        observeMovies()
+        subscribeOverflowMenuObserver()
     }
 
-    private fun observeLeagues() {
+    private fun observeMovies() {
         viewModel.movies.observe(this, Observer {
             handleState(it)
         })
@@ -68,11 +90,11 @@ class OverviewFragment : BaseFragment<List<Movie>>(),SwipeRefreshLayout.OnRefres
         viewModelAdapter?.movies = availableMovies
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setHasOptionsMenu(true)
         // Inflate the layout for this fragment
         val binding = FragmentOverviewBinding.inflate(inflater)
 
@@ -113,12 +135,32 @@ class OverviewFragment : BaseFragment<List<Movie>>(),SwipeRefreshLayout.OnRefres
         return binding.root
     }
 
-
-
-
     override fun onRefresh() {
         viewModel.onSwipe()
         mSwipeRefreshLayout!!.isRefreshing = false
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.overflow_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item?.itemId) {
+            R.id.id_popular_movies_menu -> {
+               viewModel.setOverflowMenuState(PopularMoviesState())
+                viewModel.getAvailablePopularMovies()
+                true
+            }
+
+            R.id.id_upcoming_movies_menu-> {
+                viewModel.setOverflowMenuState(UpcomingMoviesState())
+                viewModel.getAvailableUpcomingMovies()
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
 }
@@ -153,9 +195,6 @@ class OverviewAdapter(val onClickListener: OnClickListener) :  RecyclerView.Adap
             it.clicklistener = onClickListener
         }
     }
-
-
-
 }
 
 class OverviewViewHolder(val viewDataBinding: MovieItemBinding): RecyclerView.ViewHolder(viewDataBinding.root) {
