@@ -8,7 +8,6 @@
     <fragment
         android:id="@+id/detailFragment"
         android:name="tk.paulmburu.moviesreview.ui.details.DetailFragment"
-        android:label="fragment_detail"
         tools:layout="@layout/fragment_detail">
 
         <argument
@@ -20,7 +19,6 @@
     <fragment
         android:id="@+id/overviewFragment"
         android:name="tk.paulmburu.moviesreview.ui.overview.OverviewFragment"
-        android:label="fragment_overview"
         tools:layout="@layout/fragment_overview">
         <action
             android:id="@+id/action_overviewFragment_to_detailFragment"
