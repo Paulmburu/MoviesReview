@@ -1,7 +1,8 @@
 package tk.paulmburu.moviesreview.network
 
 import com.squareup.moshi.JsonClass
-import tk.paulmburu.moviesreview.database.DatabaseMovie
+import tk.paulmburu.moviesreview.database.PopularMovies
+import tk.paulmburu.moviesreview.database.UpcomingMovies
 import tk.paulmburu.moviesreview.domain.Movie
 
 /**
@@ -11,9 +12,9 @@ import tk.paulmburu.moviesreview.domain.Movie
  */
 
 // that returns an array of <DatabaseMovieResult>.
-fun NetworkMovieContainer.asDatabaseModel(): Array<DatabaseMovie> {
+fun NetworkMovieContainer.asDatabasePopularMoviesModel(): Array<PopularMovies> {
     return results.map {
-        DatabaseMovie (
+        PopularMovies (
             title = it.title,
             overview = it.overview,
             release_date = it.release_date,
@@ -23,8 +24,19 @@ fun NetworkMovieContainer.asDatabaseModel(): Array<DatabaseMovie> {
     }.toTypedArray()
 }
 
+fun NetworkMovieContainer.asDatabaseUpcomingMoviesModel(): Array<UpcomingMovies> {
+    return results.map {
+        UpcomingMovies (
+            title = it.title,
+            overview = it.overview,
+            release_date = it.release_date,
+            vote_average = it.vote_average,
+            poster_path = it.poster_path,
+            original_language = it.original_language)
+    }.toTypedArray()
+}
 /**
- * VideoHolder holds a list of Movies.
+ * MovieHolder holds a list of Movies.
  *
  * This is to parse first level of our network result which looks like
  *
