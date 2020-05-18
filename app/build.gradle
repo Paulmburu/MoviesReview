@@ -7,6 +7,11 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 
+
+def apikeyPropertiesFile = rootProject.file("secrets.properties")
+def apikeyProperties = new Properties()
+apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
@@ -18,7 +23,8 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
-        buildConfigField("String", "MOVIESREVIEW_API_KEY", "\"${project.hasProperty("MOVIESREVIEW_API_KEY") ? MOVIESREVIEW_API_KEY : System.getenv("MOVIESREVIEW_API_KEY")}\"")
+
+        buildConfigField("String", "MOVIESREVIEW_API_KEY", apikeyProperties['MOVIESREVIEW_API_KEY'])
     }
     buildTypes {
         release {
@@ -51,6 +57,10 @@ dependencies {
     // Navigation
     implementation "android.arch.navigation:navigation-fragment-ktx:$version_navigation"
     implementation "android.arch.navigation:navigation-ui-ktx:$version_navigation"
+
+    //Navigation
+//    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+//    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
     // Core with Ktx
     implementation "androidx.core:core-ktx:$version_core"
