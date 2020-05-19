@@ -12,9 +12,10 @@ import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.AppUpdateType.IMMEDIATE
 import com.google.android.play.core.install.model.UpdateAvailability
+import dagger.android.support.DaggerAppCompatActivity
 import tk.paulmburu.moviesreview.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : DaggerAppCompatActivity() {
 
 
     lateinit var appUpdateManager: AppUpdateManager
