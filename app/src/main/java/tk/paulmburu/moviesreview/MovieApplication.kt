@@ -3,17 +3,25 @@ package tk.paulmburu.moviesreview
 import android.app.Application
 import android.os.Build
 import androidx.work.*
+import dagger.android.AndroidInjector
+import dagger.android.support.DaggerApplication
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import tk.paulmburu.moviesreview.di.DaggerAppComponent
 import tk.paulmburu.moviesreview.work.RefreshDataWorker
 import java.util.concurrent.TimeUnit
 
 /**
  * Override application to setup background work via WorkManager
  */
-class MovieApplication : Application(){
+class MovieApplication : DaggerApplication(){
+
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
+        return DaggerAppComponent.builder().application(this).build()
+    }
+
     // CoroutineScope variable applicationScope, using Dispatchers.Default.
     val applicationScope = CoroutineScope(Dispatchers.Default)
 
@@ -63,4 +71,6 @@ class MovieApplication : Application(){
         // Call delayedInit().
         val delayedInit = delayedInit()
     }
+
+
 }
