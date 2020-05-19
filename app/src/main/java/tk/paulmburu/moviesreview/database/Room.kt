@@ -1,7 +1,6 @@
 package tk.paulmburu.moviesreview.database
 
 import android.content.Context
-import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao
@@ -30,10 +29,12 @@ interface MovieDao {
     // SQL @Query deleteUpcomingMovies() function that deletes all movies
     @Query("DELETE FROM upcomingmovies")
     fun deleteAllUpcomingMovies()
+
+
 }
 
 // An abstract MoviesDatabase class that extends RoomDatabase.
-@Database(entities = [PopularMovies::class, UpcomingMovies::class], version = 1)
+@Database(entities = [PopularMovies::class, UpcomingMovies::class], version = 2)
 abstract class MoviesDatabase : RoomDatabase() {
     abstract val movieDao: MovieDao
 }
@@ -47,7 +48,9 @@ fun getDatabase(context: Context): MoviesDatabase {
         if (!::INSTANCE.isInitialized) {
             INSTANCE = Room.databaseBuilder(context.applicationContext,
                 MoviesDatabase::class.java,
-                "videos").build()
+                "videos")
+                .fallbackToDestructiveMigration()
+                .build()
 
         }
     }

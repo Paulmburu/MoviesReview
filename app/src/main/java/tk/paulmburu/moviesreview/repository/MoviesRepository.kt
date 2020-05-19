@@ -1,11 +1,8 @@
 package tk.paulmburu.moviesreview.repository
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+
 import tk.paulmburu.moviesreview.database.MoviesDatabase
-import tk.paulmburu.moviesreview.database.asDomainModel
+import tk.paulmburu.moviesreview.database.asDomainMovieModel
 import tk.paulmburu.moviesreview.domain.Movie
 import tk.paulmburu.moviesreview.network.*
 import tk.paulmburu.moviesreview.utils.ResultState
@@ -24,9 +21,9 @@ class MoviesRepository (private val database: MoviesDatabase){
                 else{
                     val result = MoviesApi.retrofitService.getPopularMovies()
                     database.movieDao.insertAllPopularMovies(*result.asDatabasePopularMoviesModel())
-                    Success(database.movieDao.getPopularMovies().asDomainModel())
+                    Success(database.movieDao.getPopularMovies().asDomainMovieModel())
                 }
-            } else Success(database.movieDao.getPopularMovies().asDomainModel())
+            } else Success(database.movieDao.getPopularMovies().asDomainMovieModel())
         }
     }
 
@@ -39,9 +36,9 @@ class MoviesRepository (private val database: MoviesDatabase){
                 else{
                     val result = MoviesApi.retrofitService.getUpcomingMovies()
                     database.movieDao.insertAllUpcomingMovies(*result.asDatabaseUpcomingMoviesModel())
-                    Success(database.movieDao.getUpcomingMovies().asDomainModel())
+                    Success(database.movieDao.getUpcomingMovies().asDomainMovieModel())
                 }
-            } else Success(database.movieDao.getUpcomingMovies().asDomainModel())
+            } else Success(database.movieDao.getUpcomingMovies().asDomainMovieModel())
         }
     }
 

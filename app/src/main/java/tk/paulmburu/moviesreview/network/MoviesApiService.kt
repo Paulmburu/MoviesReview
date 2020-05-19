@@ -1,9 +1,8 @@
 package tk.paulmburu.moviesreview.network
 
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import kotlinx.coroutines.Deferred
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -35,8 +34,10 @@ private val retrofit = Retrofit.Builder()
 interface MoviesApiService {
     @GET("movie/popular?api_key=${BuildConfig.MOVIESREVIEW_API_KEY}")
     suspend fun getPopularMovies(): NetworkMovieContainer
+
     @GET("movie/upcoming?api_key=${BuildConfig.MOVIESREVIEW_API_KEY}")
     suspend fun getUpcomingMovies(): NetworkMovieContainer
+
 
 
 }

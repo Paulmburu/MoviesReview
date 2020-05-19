@@ -4,26 +4,16 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import tk.paulmburu.moviesreview.R
-import tk.paulmburu.moviesreview.network.MovieResult
 import tk.paulmburu.moviesreview.ui.overview.MoviesApiStatus
-import tk.paulmburu.moviesreview.ui.overview.PhotoGridAdapter
 
 
-//binding adapter for the listData attribute that calls submitList on the RV adapter
-@BindingAdapter("listData")
-fun bindRecyclerView(recyclerView: RecyclerView, data: List<MovieResult>?) {
-    val adapter = recyclerView.adapter as PhotoGridAdapter
-    adapter.submitList(data)
-}
 
 @BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, imgUrl: String?) {
     imgUrl?.let {
-//        val imgUri = imgUrl!!.toUri().buildUpon().scheme("https").build()
         Glide.with(imgView.context)
             .load("https://image.tmdb.org/t/p/w300_and_h300_bestv2"+imgUrl)
             .apply(

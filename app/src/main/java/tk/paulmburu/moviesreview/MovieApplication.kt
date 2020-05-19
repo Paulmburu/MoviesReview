@@ -2,7 +2,6 @@ package tk.paulmburu.moviesreview
 
 import android.app.Application
 import android.os.Build
-import android.util.Log
 import androidx.work.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

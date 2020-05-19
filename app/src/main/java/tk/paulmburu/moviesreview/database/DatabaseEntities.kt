@@ -4,12 +4,12 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import tk.paulmburu.moviesreview.domain.Movie
 
-sealed class DatabaseEntities(){
+sealed class DatabaseMovieEntities(){
     abstract val title: String
     abstract val overview: String
     abstract val release_date: String
     abstract val vote_average: String
-    abstract val poster_path: String
+    abstract val poster_path: String?
     abstract val original_language: String
 }
 
@@ -20,9 +20,9 @@ data class PopularMovies constructor(
     override val overview: String,
     override val release_date: String,
     override val vote_average: String,
-    override val poster_path: String,
+    override val poster_path: String?,
     override val original_language: String
-) : DatabaseEntities()
+) : DatabaseMovieEntities()
 
 @Entity
 data class UpcomingMovies constructor(
@@ -31,12 +31,12 @@ data class UpcomingMovies constructor(
     override val overview: String,
     override val release_date: String,
     override val vote_average: String,
-    override val poster_path: String,
+    override val poster_path: String?,
     override val original_language: String
-) : DatabaseEntities()
+) : DatabaseMovieEntities()
 
 
-fun List<DatabaseEntities>.asDomainModel(): List<Movie> {
+fun List<DatabaseMovieEntities>.asDomainMovieModel(): List<Movie> {
     return map {
         Movie(
             title = it.title,
@@ -48,3 +48,4 @@ fun List<DatabaseEntities>.asDomainModel(): List<Movie> {
         )
     }
 }
+

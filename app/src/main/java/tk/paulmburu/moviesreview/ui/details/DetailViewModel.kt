@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import tk.paulmburu.moviesreview.domain.Movie
 
 class DetailViewModel(movie: Movie, app : Application) : ViewModel(){
-//    Add selected MovieLiveData, and initialize during init
 
     private val _selectedMovie = MutableLiveData<Movie>()
 

@@ -32,8 +32,8 @@
                     android:id="@+id/bannerImgView"
                     android:layout_width="match_parent"
                     android:layout_height="220dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/joker_movie" />
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_broken_image" />
 
             </androidx.cardview.widget.CardView>
 

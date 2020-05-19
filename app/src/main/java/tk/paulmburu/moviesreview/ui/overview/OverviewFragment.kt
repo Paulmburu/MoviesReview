@@ -3,7 +3,6 @@ package tk.paulmburu.moviesreview.ui.overview
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.annotation.LayoutRes
 import androidx.annotation.RequiresApi
@@ -148,14 +147,14 @@ class OverviewFragment : BaseFragment<List<Movie>>(),SwipeRefreshLayout.OnRefres
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item?.itemId) {
             R.id.id_popular_movies_menu -> {
-               viewModel.setOverflowMenuState(PopularMoviesState())
                 viewModel.getAvailablePopularMovies()
+                viewModel.setOverflowMenuState(PopularMoviesState())
                 true
             }
 
             R.id.id_upcoming_movies_menu-> {
-                viewModel.setOverflowMenuState(UpcomingMoviesState())
                 viewModel.getAvailableUpcomingMovies()
+                viewModel.setOverflowMenuState(UpcomingMoviesState())
                 true
             }
 

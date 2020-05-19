@@ -5,8 +5,8 @@
     <ImageView
         android:src="@drawable/loading_animation"
         android:id="@+id/movies_loading_anim"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

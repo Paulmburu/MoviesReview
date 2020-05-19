@@ -12,7 +12,6 @@ import tk.paulmburu.moviesreview.interactors.GetAvailablePopularMoviesUseCase
 import tk.paulmburu.moviesreview.interactors.GetAvailableUpcomingMoviesUseCase
 import tk.paulmburu.moviesreview.network.MovieResult
 import tk.paulmburu.moviesreview.repository.MoviesRepository
-import tk.paulmburu.moviesreview.ui.*
 import tk.paulmburu.moviesreview.utils.ResultState
 
 //MoviesApiStatus enum with the LOADING, ERROR, and DONE states

@@ -9,9 +9,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import tk.paulmburu.moviesreview.databinding.FragmentDetailBinding
 
-/**
- * A simple [Fragment] subclass.
- */
+
 class DetailFragment : Fragment() {
 
     override fun onCreateView(
