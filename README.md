@@ -22,6 +22,7 @@ MoviesReview app development in progress, consumes https://www.themoviedb.org/ R
   * [ViewModel][7] - Store UI-related data that isn't destroyed on app rotations.
   * [WorkManager][8] - Manage your Android background jobs.
 * Third party
+  * [Dagger2][14] - Dagger is a compile-time framework for dependency injection.
   * [Retrofit][9] - A type-safe HTTP client for Android and Java
   * [Moshi][10] - A modern JSON library for Android and Java. It makes it easy to parse JSON into Java objects
   * [Glide][11] for image loading
@@ -41,6 +42,7 @@ MoviesReview app development in progress, consumes https://www.themoviedb.org/ R
 [11]: https://bumptech.github.io/glide/
 [12]: https://kotlinlang.org/docs/reference/coroutines-overview.html
 [13]: https://github.com/JakeWharton/timber
+[14]: https://github.com/google/dagger
 
 ## [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 ```
