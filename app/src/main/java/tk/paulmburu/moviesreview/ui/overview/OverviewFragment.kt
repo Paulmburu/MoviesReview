@@ -19,10 +19,14 @@ import tk.paulmburu.moviesreview.base.BaseFragment
 import tk.paulmburu.moviesreview.databinding.MovieItemBinding
 import tk.paulmburu.moviesreview.domain.Movie
 import tk.paulmburu.moviesreview.utils.Success
-
+import tk.paulmburu.moviesreview.viewmodels.ViewModelProviderFactory
+import javax.inject.Inject
 
 
 class OverviewFragment : BaseFragment<List<Movie>>(),SwipeRefreshLayout.OnRefreshListener {
+
+    @Inject
+    lateinit var providerFactory: ViewModelProviderFactory
 
     private val viewModel: OverviewViewModel by lazy {
         val activity = requireNotNull(this.activity) {
@@ -30,7 +34,7 @@ class OverviewFragment : BaseFragment<List<Movie>>(),SwipeRefreshLayout.OnRefres
         }
 
 
-        ViewModelProviders.of(this, OverviewViewModel.Factory(activity.application))
+        ViewModelProviders.of(this, providerFactory)
             .get(OverviewViewModel::class.java)
     }
 

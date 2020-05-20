@@ -7,10 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
+import dagger.android.support.DaggerFragment
 import tk.paulmburu.moviesreview.databinding.FragmentDetailBinding
+import tk.paulmburu.moviesreview.viewmodels.ViewModelProviderFactory
+import javax.inject.Inject
 
 
-class DetailFragment : Fragment() {
+class DetailFragment : DaggerFragment(){
+
+    @Inject
+    lateinit var providerFactory: ViewModelProviderFactory
+    lateinit var viewModel: DetailViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,13 +31,11 @@ class DetailFragment : Fragment() {
         // Get the selectedProperty from the fragment arguments with DetailFragmentArgs
         val movie = DetailFragmentArgs.fromBundle(arguments!!).selectedMovie
 
-        // Create the DetailViewModelFactory using the movieResult and application
-        val viewModelFactory = DetailViewModelFactory(movie, application)
-
         // Get the DetailViewModel from the DetailViewModelFactory and set it in the binding
-        binding.viewModel = ViewModelProviders.of(
-            this, viewModelFactory).get(DetailViewModel::class.java)
-
+//        binding.viewModel =
+        viewModel = ViewModelProviders.of(
+            this, providerFactory).get(DetailViewModel::class.java)
+        viewModel.setSelectedMovie(movie)
         return binding.root
 
     }

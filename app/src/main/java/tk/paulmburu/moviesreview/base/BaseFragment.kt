@@ -5,11 +5,12 @@ import androidx.annotation.LayoutRes
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.errorview.*
 import kotlinx.android.synthetic.main.movies_loading_animation.*
 import tk.paulmburu.moviesreview.utils.*
 
-abstract class BaseFragment<T>() : Fragment() {
+abstract class BaseFragment<T>() : DaggerFragment() {
 
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
