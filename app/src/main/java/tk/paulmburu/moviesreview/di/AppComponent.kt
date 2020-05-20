@@ -1,6 +1,7 @@
 package tk.paulmburu.moviesreview.di
 
 import android.app.Application
+import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -10,7 +11,14 @@ import tk.paulmburu.moviesreview.MovieApplication
 
 @Singleton
 @Component(
-    modules = [AndroidSupportInjectionModule::class, ActivityBuildersModule::class]
+    modules = [
+        AndroidSupportInjectionModule::class,
+        ActivityBuildersModule::class,
+        AppModule::class,
+        DatabaseModule::class,
+        ViewModelFactoryModule::class,
+        MoviesApiModule::class
+    ]
 )
 interface AppComponent : AndroidInjector<MovieApplication>  {
     @Component.Builder
