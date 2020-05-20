@@ -5,17 +5,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import tk.paulmburu.moviesreview.domain.Movie
+import javax.inject.Inject
 
-class DetailViewModel(movie: Movie, app : Application) : ViewModel(){
+class DetailViewModel  @Inject constructor() : ViewModel(){
 
     private val _selectedMovie = MutableLiveData<Movie>()
 
     val selectedMovie: LiveData<Movie>
         get() = _selectedMovie
 
-    init {
+
+    fun setSelectedMovie(movie: Movie){
         _selectedMovie.value = movie
     }
-
-
 }

@@ -13,10 +13,13 @@ import tk.paulmburu.moviesreview.interactors.GetAvailableUpcomingMoviesUseCase
 import tk.paulmburu.moviesreview.network.MovieResult
 import tk.paulmburu.moviesreview.repository.MoviesRepository
 import tk.paulmburu.moviesreview.utils.ResultState
+import javax.inject.Inject
 
 //MoviesApiStatus enum with the LOADING, ERROR, and DONE states
 enum class MoviesApiStatus { LOADING, ERROR, DONE }
-class OverviewViewModel(application: Application) : ViewModel(){
+class OverviewViewModel
+    @Inject constructor(private val getAvailablePopularMoviesUseCase: GetAvailablePopularMoviesUseCase,
+     private val getAvailableUpcomingMoviesUseCase: GetAvailableUpcomingMoviesUseCase) : ViewModel(){
     // The internal MutableLiveData String that stores the status of the most recent request
     private val _status = MutableLiveData<MoviesApiStatus>()
 
@@ -48,8 +51,8 @@ class OverviewViewModel(application: Application) : ViewModel(){
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main )
 
-    private val database = getDatabase(application)
-    private val moviesRepository = MoviesRepository(database)
+//    private val database = getDatabase(application)
+//    private val moviesRepository = MoviesRepository(database)
 
     init {
         getAvailablePopularMovies()
@@ -63,7 +66,7 @@ class OverviewViewModel(application: Application) : ViewModel(){
     fun getAvailablePopularMovies(){
 //        _movies.value = Loading<List<Movie>>()
         coroutineScope.launch(Dispatchers.IO) {
-            _movies.postValue(GetAvailablePopularMoviesUseCase(moviesRepository).invoke())
+            _movies.postValue(getAvailablePopularMoviesUseCase.invoke())
             _overFlowMenuState.postValue(PopularMoviesState())
         }
     }
@@ -71,7 +74,7 @@ class OverviewViewModel(application: Application) : ViewModel(){
     fun getAvailableUpcomingMovies(){
 //        _movies.value = Loading<List<Movie>>()
         coroutineScope.launch(Dispatchers.IO) {
-            _movies.postValue(GetAvailableUpcomingMoviesUseCase(moviesRepository).invoke())
+            _movies.postValue(getAvailableUpcomingMoviesUseCase.invoke())
             _overFlowMenuState.postValue(UpcomingMoviesState())
         }
     }
@@ -90,12 +93,12 @@ class OverviewViewModel(application: Application) : ViewModel(){
         when(overFlowMenuState.value){
             is PopularMoviesState ->{
                 coroutineScope.launch(Dispatchers.IO) {
-                    _movies.postValue(GetAvailablePopularMoviesUseCase(moviesRepository).invoke())
+                    _movies.postValue(getAvailablePopularMoviesUseCase.invoke())
                 }
             }
             is UpcomingMoviesState -> {
                 coroutineScope.launch(Dispatchers.IO) {
-                    _movies.postValue(GetAvailableUpcomingMoviesUseCase(moviesRepository).invoke())
+                    _movies.postValue(getAvailableUpcomingMoviesUseCase.invoke())
                 }
             }
         }
@@ -106,15 +109,15 @@ class OverviewViewModel(application: Application) : ViewModel(){
     /**
      * Factory for constructing OverviewViewModel with parameter
      */
-    class Factory(val app: Application) : ViewModelProvider.Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(OverviewViewModel::class.java)) {
-                @Suppress("UNCHECKED_CAST")
-                return OverviewViewModel(app) as T
-            }
-            throw IllegalArgumentException("Unable to construct viewmodel")
-        }
-    }
+//    class Factory(val app: Application) : ViewModelProvider.Factory {
+//        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+//            if (modelClass.isAssignableFrom(OverviewViewModel::class.java)) {
+//                @Suppress("UNCHECKED_CAST")
+//                return OverviewViewModel(app) as T
+//            }
+//            throw IllegalArgumentException("Unable to construct viewmodel")
+//        }
+//    }
 }
 
 sealed class OverflowMenuState

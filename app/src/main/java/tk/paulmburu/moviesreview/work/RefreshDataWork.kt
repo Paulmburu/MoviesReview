@@ -5,9 +5,15 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import retrofit2.HttpException
 import tk.paulmburu.moviesreview.database.getDatabase
+import tk.paulmburu.moviesreview.interactors.GetAvailablePopularMoviesUseCase
+import tk.paulmburu.moviesreview.interactors.GetAvailableUpcomingMoviesUseCase
 import tk.paulmburu.moviesreview.repository.MoviesRepository
 
-class RefreshDataWorker(appContext: Context, params: WorkerParameters):
+class RefreshDataWorker(
+    private val getAvailableUpcomingMoviesUseCase: GetAvailableUpcomingMoviesUseCase,
+    private val getAvailablePopularMoviesUseCase: GetAvailablePopularMoviesUseCase,
+    appContext: Context,
+    params: WorkerParameters):
     CoroutineWorker(appContext, params) {
 
     companion object {
@@ -19,11 +25,11 @@ class RefreshDataWorker(appContext: Context, params: WorkerParameters):
      */
     override suspend fun doWork(): Payload {
         val database = getDatabase(applicationContext)
-        val repository = MoviesRepository(database)
+//        val repository = MoviesRepository(database)
 
         return try {
-            repository.getAvailablePopularMovies()
-            repository.getAvailableUpcomingMovies()
+           getAvailableUpcomingMoviesUseCase.invoke()
+            getAvailablePopularMoviesUseCase.invoke()
             Payload(Result.SUCCESS)
         } catch (e: HttpException) {
             Payload(Result.RETRY)
