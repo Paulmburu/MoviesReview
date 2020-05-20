@@ -2,6 +2,7 @@ package tk.paulmburu.moviesreview.ui.details
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -36,6 +37,7 @@ class DetailFragment : DaggerFragment(){
         viewModel = ViewModelProviders.of(
             this, providerFactory).get(DetailViewModel::class.java)
         viewModel.setSelectedMovie(movie)
+        binding.viewModel = viewModel
         return binding.root
 
     }
