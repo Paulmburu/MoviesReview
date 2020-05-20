@@ -48,7 +48,7 @@ fun getDatabase(context: Context): MoviesDatabase {
         if (!::INSTANCE.isInitialized) {
             INSTANCE = Room.databaseBuilder(context.applicationContext,
                 MoviesDatabase::class.java,
-                "videos")
+                "movies")
                 .fallbackToDestructiveMigration()
                 .build()
 
