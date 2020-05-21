@@ -43,6 +43,8 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$version_kotlin"
     implementation 'androidx.appcompat:appcompat:1.0.2'
@@ -110,8 +112,11 @@ dependencies {
     implementation "com.google.dagger:dagger-android-support:$dagger_version" // if you use the support libraries
     kapt "com.google.dagger:dagger-android-processor:$dagger_version"
 
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    // Dependencies for local unit tests
+    testImplementation "junit:junit:$junitVersion"
+    testImplementation "org.hamcrest:hamcrest-all:$hamcrestVersion"
+
+    // Androidx Test -Instrumented testing
+    androidTestImplementation "androidx.test.ext:junit:$androidxTextExtKotlinRunnerVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
 }
