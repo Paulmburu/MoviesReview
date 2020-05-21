@@ -2,16 +2,11 @@ package tk.paulmburu.moviesreview.ui.overview
 
 import android.app.Application
 import androidx.lifecycle.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-import tk.paulmburu.moviesreview.database.getDatabase
+import kotlinx.coroutines.*
 import tk.paulmburu.moviesreview.domain.Movie
 import tk.paulmburu.moviesreview.interactors.GetAvailablePopularMoviesUseCase
 import tk.paulmburu.moviesreview.interactors.GetAvailableUpcomingMoviesUseCase
 import tk.paulmburu.moviesreview.network.MovieResult
-import tk.paulmburu.moviesreview.repository.MoviesRepository
 import tk.paulmburu.moviesreview.utils.ResultState
 import javax.inject.Inject
 
@@ -105,19 +100,10 @@ class OverviewViewModel
 
     }
 
-
-    /**
-     * Factory for constructing OverviewViewModel with parameter
-     */
-//    class Factory(val app: Application) : ViewModelProvider.Factory {
-//        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-//            if (modelClass.isAssignableFrom(OverviewViewModel::class.java)) {
-//                @Suppress("UNCHECKED_CAST")
-//                return OverviewViewModel(app) as T
-//            }
-//            throw IllegalArgumentException("Unable to construct viewmodel")
-//        }
-//    }
+    override fun onCleared() {
+        super.onCleared()
+        coroutineScope.cancel()
+    }
 }
 
 sealed class OverflowMenuState
