@@ -38,6 +38,10 @@ android {
     androidExtensions {
         experimental = true
     }
+    // Always show the result of every unit test when running via command line, even if it passes.
+    testOptions.unitTests {
+        includeAndroidResources = true
+    }
 }
 
 dependencies {
@@ -115,6 +119,8 @@ dependencies {
     // Dependencies for local unit tests
     testImplementation "junit:junit:$junitVersion"
     testImplementation "org.hamcrest:hamcrest-all:$hamcrestVersion"
+    testImplementation "androidx.arch.core:core-testing:$archTestingVersion"
+    testImplementation "org.robolectric:robolectric:$robolectricVersion"
 
     // Androidx Test -Instrumented testing
     androidTestImplementation "androidx.test.ext:junit:$androidxTextExtKotlinRunnerVersion"
