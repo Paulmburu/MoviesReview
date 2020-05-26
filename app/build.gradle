@@ -20,16 +20,12 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 
-        buildConfigField("String", "MOVIESREVIEW_API_KEY", MY_API_KEY)
+        buildConfigField("String", "MOVIESREVIEW_API_KEY", "\"${project.hasProperty("MOVIESREVIEW_API_KEY") ? MOVIESREVIEW_API_KEY : System.getenv("MOVIESREVIEW_API_KEY")}\"")
     }
     buildTypes {
-        debug{
-            buildConfigField("String", "MOVIESREVIEW_API_KEY", MY_API_KEY)
-        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField("String", "MOVIESREVIEW_API_KEY", MY_API_KEY)
         }
     }
     dataBinding {
