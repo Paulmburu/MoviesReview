@@ -8,10 +8,6 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 
 
-def apikeyPropertiesFile = rootProject.file("secrets.properties")
-def apikeyProperties = new Properties()
-apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
-
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
@@ -24,12 +20,16 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 
-        buildConfigField("String", "MOVIESREVIEW_API_KEY", apikeyProperties['MOVIESREVIEW_API_KEY'])
+        buildConfigField("String", "MOVIESREVIEW_API_KEY", MY_API_KEY)
     }
     buildTypes {
+        debug{
+            buildConfigField("String", "MOVIESREVIEW_API_KEY", MY_API_KEY)
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "MOVIESREVIEW_API_KEY", MY_API_KEY)
         }
     }
     dataBinding {
