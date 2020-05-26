@@ -121,6 +121,8 @@ dependencies {
     testImplementation "org.hamcrest:hamcrest-all:$hamcrestVersion"
     testImplementation "androidx.arch.core:core-testing:$archTestingVersion"
     testImplementation "org.robolectric:robolectric:$robolectricVersion"
+    //  This package provides testing utilities for effectively testing coroutines.
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.6'
 
     // Androidx Test -Instrumented testing
     androidTestImplementation "androidx.test.ext:junit:$androidxTextExtKotlinRunnerVersion"
