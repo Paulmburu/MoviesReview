@@ -1,6 +1,6 @@
 # Popular Movies Review 🚧👷🔧️
-|[![Codacy Badge](https://api.codacy.com/project/badge/Grade/1c47631fac534bd896a11f3af378d78f)](https://app.codacy.com/manual/Paulmburu/MoviesReview?utm_source=github.com&utm_medium=referral&utm_content=Paulmburu/MoviesReview&utm_campaign=Badge_Grade_Dashboard)|[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)|
-|:---:|:---:|
+|[![Codacy Badge](https://api.codacy.com/project/badge/Grade/1c47631fac534bd896a11f3af378d78f)](https://app.codacy.com/manual/Paulmburu/MoviesReview?utm_source=github.com&utm_medium=referral&utm_content=Paulmburu/MoviesReview&utm_campaign=Badge_Grade_Dashboard)|[![BCH compliance](https://bettercodehub.com/edge/badge/Paulmburu/MoviesReview?branch=master)](https://bettercodehub.com/)|[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)|
+|:---:|:---:|:---:|
 
 Get a review of latest popular movies.
 MoviesReview app development in progress, consumes https://www.themoviedb.org/ REST APIs to fetch popular movies and their info, built on [Android Architecture Components](https://developer.android.com/topic/libraries/architecture) and [MVVM Architecture](https://developer.android.com/jetpack/docs/guide).
