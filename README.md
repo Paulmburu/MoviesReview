@@ -10,7 +10,6 @@ MoviesReview app development in progress, consumes https://www.themoviedb.org/ R
 ## Screenshots
 <image src="screenshots/3.png" width="200"><image src="screenshots/2.png" width="200"><image src="screenshots/4.png" width="200"><image src="screenshots/5.png" width="200">
 --------------
-  [![HitCount](http://hits.dwyl.com/Paulmburu/MoviesReview.svg)](http://hits.dwyl.com/Paulmburu/MoviesReview)
   
   ## Tech stack
   
