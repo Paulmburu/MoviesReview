@@ -49,15 +49,15 @@ class OverviewFragment : BaseFragment<List<Movie>>(),SwipeRefreshLayout.OnRefres
         observeNetworkChanges()
     }
 
-    fun subscribeOverflowMenuObserver(){
+    private fun subscribeOverflowMenuObserver(){
         viewModel.overFlowMenuState.observe(viewLifecycleOwner, Observer<OverflowMenuState> {
             when(it){
                 is PopularMoviesState -> {
-                    (activity as AppCompatActivity).supportActionBar!!.setTitle(PopularMoviesState().title)
+                    (activity as AppCompatActivity).supportActionBar?.title = PopularMoviesState().title
 
                 }
                 is UpcomingMoviesState -> {
-                    (activity as AppCompatActivity).supportActionBar!!.setTitle(UpcomingMoviesState().title)
+                    (activity as AppCompatActivity).supportActionBar?.title = UpcomingMoviesState().title
                 }
             }
         })
@@ -102,7 +102,7 @@ class OverviewFragment : BaseFragment<List<Movie>>(),SwipeRefreshLayout.OnRefres
         val binding = FragmentOverviewBinding.inflate(inflater)
 
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
-        binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = this
 
         mSwipeRefreshLayout = binding.swipeContainer
 
@@ -149,7 +149,7 @@ class OverviewFragment : BaseFragment<List<Movie>>(),SwipeRefreshLayout.OnRefres
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item?.itemId) {
+        return when (item.itemId) {
             R.id.id_popular_movies_menu -> {
                 viewModel.getAvailablePopularMovies()
                 viewModel.setOverflowMenuState(PopularMoviesState())
@@ -167,7 +167,7 @@ class OverviewFragment : BaseFragment<List<Movie>>(),SwipeRefreshLayout.OnRefres
     }
 
 }
-class OverviewAdapter(val onClickListener: OnClickListener) :  RecyclerView.Adapter<OverviewViewHolder>() {
+class OverviewAdapter(private val onClickListener: OnClickListener) :  RecyclerView.Adapter<OverviewViewHolder>() {
 
 
     var movies: List<Movie> = emptyList()
@@ -194,7 +194,7 @@ class OverviewAdapter(val onClickListener: OnClickListener) :  RecyclerView.Adap
     override fun onBindViewHolder(holder: OverviewViewHolder, position: Int) {
 
         holder.viewDataBinding.also {
-            it.movie = movies.get(position)
+            it.movie = movies[position]
             it.clicklistener = onClickListener
         }
     }
