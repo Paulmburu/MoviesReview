@@ -1,6 +1,5 @@
 package tk.paulmburu.moviesreview.repository
 
-
 import tk.paulmburu.moviesreview.database.MoviesDatabase
 import tk.paulmburu.moviesreview.database.asDomainMovieModel
 import tk.paulmburu.moviesreview.domain.Movie
@@ -12,16 +11,18 @@ import tk.paulmburu.moviesreview.utils.Success
 import tk.paulmburu.moviesreview.utils.executeNonBlocking
 import javax.inject.Inject
 
-class MoviesRepository @Inject constructor(private val moviesApiService: MoviesApiService ,private val database: MoviesDatabase){
+class MoviesRepository @Inject constructor(
+    private val moviesApiService: MoviesApiService,
+    private val database: MoviesDatabase
+) {
 
-
-    suspend fun getAvailablePopularMovies(): ResultState<List<Movie>>{
+    suspend fun getAvailablePopularMovies(): ResultState<List<Movie>> {
         return executeNonBlocking {
-            if(database.movieDao.getPopularMovies().isNullOrEmpty()){
+            if (database.movieDao.getPopularMovies().isNullOrEmpty()) {
                 val response = moviesApiService.getPopularMovies()
-                if(response.results.size == 0 )
-                    Success(emptyList<Movie>())
-                else{
+                if (response.results.isEmpty())
+                    Success(emptyList())
+                else {
                     val result = moviesApiService.getPopularMovies()
                     database.movieDao.insertAllPopularMovies(*result.asDatabasePopularMoviesModel())
                     Success(database.movieDao.getPopularMovies().asDomainMovieModel())
@@ -30,13 +31,13 @@ class MoviesRepository @Inject constructor(private val moviesApiService: MoviesA
         }
     }
 
-    suspend fun getAvailableUpcomingMovies(): ResultState<List<Movie>>{
+    suspend fun getAvailableUpcomingMovies(): ResultState<List<Movie>> {
         return executeNonBlocking {
-            if(database.movieDao.getUpcomingMovies().isNullOrEmpty()){
+            if (database.movieDao.getUpcomingMovies().isNullOrEmpty()) {
                 val response = moviesApiService.getUpcomingMovies()
-                if(response.results.size == 0 )
-                    Success(emptyList<Movie>())
-                else{
+                if (response.results.isEmpty())
+                    Success(emptyList())
+                else {
                     val result = moviesApiService.getUpcomingMovies()
                     database.movieDao.insertAllUpcomingMovies(*result.asDatabaseUpcomingMoviesModel())
                     Success(database.movieDao.getUpcomingMovies().asDomainMovieModel())

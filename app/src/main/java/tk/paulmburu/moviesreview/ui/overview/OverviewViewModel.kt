@@ -1,6 +1,5 @@
 package tk.paulmburu.moviesreview.ui.overview
 
-import android.app.Application
 import androidx.lifecycle.*
 import kotlinx.coroutines.*
 import tk.paulmburu.moviesreview.domain.Movie

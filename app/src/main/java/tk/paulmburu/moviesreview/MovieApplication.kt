@@ -1,6 +1,5 @@
 package tk.paulmburu.moviesreview
 
-import android.app.Application
 import android.os.Build
 import androidx.work.*
 import dagger.android.AndroidInjector
@@ -23,7 +22,7 @@ class MovieApplication : DaggerApplication(){
     }
 
     // CoroutineScope variable applicationScope, using Dispatchers.Default.
-    val applicationScope = CoroutineScope(Dispatchers.Default)
+    private val applicationScope = CoroutineScope(Dispatchers.Default)
 
     // delayedInit() function that calls setupRecurringWork() in
     // the coroutine you defined above.
@@ -48,7 +47,7 @@ class MovieApplication : DaggerApplication(){
     // in setupRecurringWork(), define constraints to prevent work from occurring when
     // there is no network access or the device is low on battery.
     //  Add the constraints to the repeatingRequest definition.
-    val constraints = Constraints.Builder()
+    private val constraints = Constraints.Builder()
         .setRequiredNetworkType(NetworkType.UNMETERED)
         .setRequiresBatteryNotLow(true)
         .setRequiresCharging(true)
