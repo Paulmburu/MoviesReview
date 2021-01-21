@@ -30,6 +30,9 @@ MoviesReview app development in progress, consumes https://www.themoviedb.org/ R
   * [Glide][11] for image loading
   * [Kotlin Coroutines][12] for managing background threads with simplified code and reducing needs for callbacks
   *[Timber][13] logging Library
+* CI/CD
+  * [Travis CI][15]
+  * [Fastlane][16]
 
 [1]: https://developer.android.com/jetpack/arch/
 [2]: https://developer.android.com/topic/libraries/data-binding/
@@ -45,6 +48,8 @@ MoviesReview app development in progress, consumes https://www.themoviedb.org/ R
 [12]: https://kotlinlang.org/docs/reference/coroutines-overview.html
 [13]: https://github.com/JakeWharton/timber
 [14]: https://github.com/google/dagger
+[15]: https://travis-ci.org/
+[16]: https://fastlane.tools/
 
 ## [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 ```
