@@ -33,6 +33,110 @@ buildscript {
         junitVersion = "4.12"
         robolectricVersion = '4.3.1'
 
+        dagger_version = "2.27"
+        multidex_version = "2.0.1"
+
+
+        libraries = [
+                'androidx.legacy:legacy-support-v4:1.0.0',
+
+                // Kotlin
+                "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$version_kotlin",
+                'androidx.appcompat:appcompat:1.0.2',
+                'androidx.core:core-ktx:1.0.2',
+
+                // Constraint Layout
+                "androidx.constraintlayout:constraintlayout:$version_constraint_layout",
+
+                // ViewModel and LiveData
+                "androidx.lifecycle:lifecycle-extensions:$version_lifecycle_extensions",
+
+                // Navigation
+                "android.arch.navigation:navigation-fragment-ktx:$version_navigation",
+                "android.arch.navigation:navigation-ui-ktx:$version_navigation",
+
+
+                // Core with Ktx
+                "androidx.core:core-ktx:$version_core",
+
+
+                //    Dependencies for Moshi
+                "com.squareup.moshi:moshi:$version_moshi",
+                "com.squareup.moshi:moshi-kotlin:$version_moshi",
+
+                "com.squareup.retrofit2:retrofit: $version_retrofit",
+
+                //    implementation "com.squareup.retrofit2:converter-scalars:$version_retrofit"
+                "com.squareup.retrofit2:converter-moshi:$version_retrofit",
+
+                //    dependencies for both Coroutines and for the Retrofit Coroutines Adapter
+                "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version_kotlin_coroutines",
+                "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version_kotlin_coroutines",
+                "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$version_retrofit_coroutines_adapter",
+
+                //    Glide library dependency
+                "com.github.bumptech.glide:glide:$version_glide",
+
+                //    Gradle dependency for the RecyclerView
+                "androidx.recyclerview:recyclerview:$version_recyclerview",
+
+                // Room database
+                "androidx.room:room-runtime:$version_room",
+                'com.google.android.play:core-ktx:1.6.5',
+
+                // Logging
+                "com.jakewharton.timber:timber:$version_timber"
+        ]
+
+        workManager = [
+                // WorkManager
+                "android.arch.work:work-runtime-ktx:$version_work"
+        ]
+
+        kapts = [
+                "androidx.room:room-compiler:$version_room",
+                "com.google.dagger:dagger-compiler:$dagger_version",
+                "com.google.dagger:dagger-android-processor:$dagger_version"
+        ]
+
+        firebase = [
+                // Firebase SDK for Google Analytics
+                'com.google.firebase:firebase-analytics:17.2.2',
+
+                //    Firebase Crashlytics SDK.
+                'com.google.firebase:firebase-crashlytics:17.0.0'
+        ]
+
+        multidex = [
+                "androidx.multidex:multidex:$multidex_version"
+        ]
+
+        dagger = [
+                "com.google.dagger:dagger:$dagger_version",
+                "com.google.dagger:dagger-android:$dagger_version",
+                "com.google.dagger:dagger-android-support:$dagger_version"
+        ]
+
+        testImplementation = [
+
+                // Dependencies for local unit tests
+                "junit:junit:$junitVersion",
+                "org.hamcrest:hamcrest-all:$hamcrestVersion",
+                "androidx.arch.core:core-testing:$archTestingVersion",
+                "org.robolectric:robolectric:$robolectricVersion",
+                "androidx.test.ext:junit-ktx:$androidXTestExtKotlinRunnerVersion",
+                "androidx.test:core-ktx:$androidXTestCoreVersion",
+
+                //  This package provides testing utilities for effectively testing coroutines.
+                'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.6'
+        ]
+
+        androidTestImplementation = [
+                // Androidx Test -Instrumented testing
+                "androidx.test.ext:junit:$androidxTextExtKotlinRunnerVersion",
+                "androidx.test.espresso:espresso-core:$espressoVersion"
+        ]
+
     }
 
     repositories {
