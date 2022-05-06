@@ -14,9 +14,9 @@ import javax.inject.Inject
 class MoviesRepository @Inject constructor(
     private val moviesApiService: MoviesApiService,
     private val database: MoviesDatabase
-) {
+) : IMoviesRepository {
 
-    suspend fun getAvailablePopularMovies(): ResultState<List<Movie>> {
+    override suspend fun getAvailablePopularMovies(): ResultState<List<Movie>> {
         return executeNonBlocking {
             if (database.movieDao.getPopularMovies().isNullOrEmpty()) {
                 val response = moviesApiService.getPopularMovies()
@@ -31,7 +31,7 @@ class MoviesRepository @Inject constructor(
         }
     }
 
-    suspend fun getAvailableUpcomingMovies(): ResultState<List<Movie>> {
+    override suspend fun getAvailableUpcomingMovies(): ResultState<List<Movie>> {
         return executeNonBlocking {
             if (database.movieDao.getUpcomingMovies().isNullOrEmpty()) {
                 val response = moviesApiService.getUpcomingMovies()

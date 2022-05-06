@@ -3,8 +3,8 @@ package tk.paulmburu.moviesreview.ui.overview
 import androidx.lifecycle.*
 import kotlinx.coroutines.*
 import tk.paulmburu.moviesreview.domain.Movie
-import tk.paulmburu.moviesreview.interactors.GetAvailablePopularMoviesUseCase
-import tk.paulmburu.moviesreview.interactors.GetAvailableUpcomingMoviesUseCase
+import tk.paulmburu.moviesreview.interactors.IGetAvailablePopularMoviesUseCase
+import tk.paulmburu.moviesreview.interactors.IGetAvailableUpcomingMoviesUseCase
 import tk.paulmburu.moviesreview.network.MovieResult
 import tk.paulmburu.moviesreview.utils.ResultState
 import javax.inject.Inject
@@ -12,8 +12,9 @@ import javax.inject.Inject
 //MoviesApiStatus enum with the LOADING, ERROR, and DONE states
 enum class MoviesApiStatus { LOADING, ERROR, DONE }
 class OverviewViewModel
-    @Inject constructor(private val getAvailablePopularMoviesUseCase: GetAvailablePopularMoviesUseCase,
-     private val getAvailableUpcomingMoviesUseCase: GetAvailableUpcomingMoviesUseCase) : ViewModel(){
+    @Inject constructor(private val getAvailablePopularMoviesUseCase: IGetAvailablePopularMoviesUseCase,
+                        private val getAvailableUpcomingMoviesUseCase: IGetAvailableUpcomingMoviesUseCase
+    ) : ViewModel(){
     // The internal MutableLiveData String that stores the status of the most recent request
     private val _status = MutableLiveData<MoviesApiStatus>()
 

@@ -5,9 +5,13 @@ import tk.paulmburu.moviesreview.repository.MoviesRepository
 import tk.paulmburu.moviesreview.utils.ResultState
 import javax.inject.Inject
 
-class GetAvailableUpcomingMoviesUseCase @Inject constructor(val moviesRepository: MoviesRepository) {
+class GetAvailableUpcomingMoviesUseCase @Inject constructor(val moviesRepository: MoviesRepository) : IGetAvailableUpcomingMoviesUseCase {
 
-    suspend fun invoke(): ResultState<List<Movie>> {
+    override suspend fun invoke(): ResultState<List<Movie>> {
         return moviesRepository.getAvailableUpcomingMovies()
     }
+}
+
+interface IGetAvailableUpcomingMoviesUseCase {
+    suspend fun invoke(): ResultState<List<Movie>>
 }
